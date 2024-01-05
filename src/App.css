@@ -12,33 +12,3 @@ body::after {
   display: block;
   height: 120px;
 }
-
-.grid {
-  display: grid;
-}
-
-.category-options li:hover {
-  text-decoration: underline;
-  cursor: pointer;
-}
-
-.comment-section {
-  border: 2px solid;
-  padding: 20px;
-  background-color: rgb(200, 199, 198);
-  border-radius: 10px;
-}
-
-section > li > button {
-  margin-left: 160px;
-}
-
-button > p {
-  background-color: rgb(255, 255, 255);
-  border: 3px solid black;
-  border-radius: 20px;
-  padding: 4px;
-  position: absolute;
-  top: -2.5px;
-  right: 10px;
-}
