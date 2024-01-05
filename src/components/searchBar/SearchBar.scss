@@ -1,0 +1,41 @@
+.SearchBar {
+  margin-top: 20px;
+
+  &__Input {
+    margin-left: 400px;
+    width: 30%;
+    border-radius: 20px;
+    padding: 5px;
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+    text-indent: 35px;
+  }
+
+  &__Icon {
+    margin-left: -512px;
+    pointer-events: none;
+    border: none;
+    background: none;
+  }
+
+  &__Search {
+    background: #f1cc24;
+    border-radius: 0 20px 20px 0;
+    padding: 5px 15px;
+    letter-spacing: 1px;
+    border-left: none;
+  }
+
+  &__Categories {
+    &__Button {
+      border: none;
+      font-size: x-large;
+
+      img {
+        position: absolute;
+        left: 790px;
+        top: 122px;
+      }
+    }
+  }
+}

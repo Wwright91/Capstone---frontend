@@ -1,13 +1,42 @@
 .IndexPage {
-  display: grid;
-  grid-template-columns: 1fr 3fr 1fr;
+  &__Container {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    padding: 30px 20px;
+    gap: 20px;
+  }
 
   &__Categories {
     text-align: center;
     border: 1px solid black;
     background-color: #000;
     color: #f1cc24;
-    height: 700px;
+    margin-top: 20px;
+    padding: 10px 0;
+
+    ul {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      row-gap: 10px;
+    }
+
+    ul :nth-child(-n + 4) {
+      margin-right: 10px;
+    }
+
+    ul :nth-child(n + 5) {
+      margin-left: 150px;
+    }
+
+    a {
+      color: white;
+      text-decoration: none;
+      text-transform: capitalize;
+    }
+
+    a:hover {
+      color: #f1cc24;
+    }
   }
 
   &__Cards {
