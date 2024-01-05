@@ -2,15 +2,15 @@ import "./BusinessPage.scss";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import Table from "react-bootstrap/Table";
+// import Table from "react-bootstrap/Table";
 import { Button } from "react-bootstrap";
-import Tab from "react-bootstrap/Tab";
-import Tabs from "react-bootstrap/Tabs";
+// import Tab from "react-bootstrap/Tab";
+// import Tabs from "react-bootstrap/Tabs";
 // import ShowMap from "../ShowMap";
 
-import Comments from "../comments/Comments";
+// import Comments from "../comments/Comments";
 import Comment from "../comments/Comment";
-import CommentForm from "../comments/CommentForm";
+// import CommentForm from "../comments/CommentForm";
 import { StarRatingAndReviews } from "../StarRating";
 import BusinessHours from "../businessHours/BusinessHours";
 
@@ -18,11 +18,11 @@ const API = process.env.REACT_APP_API_URL;
 const API_key = process.env.REACT_APP_GOOGLE_API_KEY;
 
 const Show = ({ setFavs, favs, currentUser, findBusinessByPlaceId }) => {
-  const [key, setKey] = useState("description");
+  // const [key, setKey] = useState("description");
   const [favorite, setFavorite] = useState(false);
   let { id } = useParams();
   const [comments, setComments] = useState([]);
-  const [showForm, setShowForm] = useState(false);
+  // const [showForm, setShowForm] = useState(false);
   // const [showComments, setShowComments] = useState(false);
 
   const placeId = findBusinessByPlaceId(Number(id));
@@ -75,24 +75,22 @@ const Show = ({ setFavs, favs, currentUser, findBusinessByPlaceId }) => {
     name,
     address,
     contact_num,
-    year_opened,
     img,
     website,
-    description,
     is_store,
   } = business;
 
-  const handleAdd = (newComment) => {
-    axios
-      .post(`${API}/businesses/${id}/comments`, newComment)
-      .then(
-        (response) => {
-          setComments([response.data, ...comments]);
-        },
-        (error) => console.error(error)
-      )
-      .catch((c) => console.warn("catch", c));
-  };
+  // const handleAdd = (newComment) => {
+  //   axios
+  //     .post(`${API}/businesses/${id}/comments`, newComment)
+  //     .then(
+  //       (response) => {
+  //         setComments([response.data, ...comments]);
+  //       },
+  //       (error) => console.error(error)
+  //     )
+  //     .catch((c) => console.warn("catch", c));
+  // };
 
   const handleDelete = (id) => {
     axios
@@ -139,7 +137,7 @@ const Show = ({ setFavs, favs, currentUser, findBusinessByPlaceId }) => {
         <div className="BusinessPage__Details__Header">
           <h1>{name || businessDataFromAPI.name}</h1>
           <div className="BusinessPage__Details__Header__2">
-            <a href="#">Review</a>
+            {/* <a href="#">Review</a> */}
             <Button
               variant="warning"
               onClick={() => {
@@ -178,25 +176,25 @@ const Show = ({ setFavs, favs, currentUser, findBusinessByPlaceId }) => {
             </a>
           ) : (
             <p>
-              <i class="fa-solid fa-location-dot"></i>{" "}
+              <i className="fa-solid fa-location-dot"></i>{" "}
               <a href={`http://maps.google.com/?q=${name}`} target="*">
                 {businessDataFromAPI.formatted_address || address}
               </a>
             </p>
           )}
-          <a href="#">
-            <i class="fa-solid fa-phone"></i>{" "}
+          {/* <a href="#"> */}
+            <i className="fa-solid fa-phone"></i>{" "}
             {businessDataFromAPI.formatted_phone_number || contact_num || "N/A"}
-          </a>
+          {/* </a> */}
           <p>
-            <i class="fa-solid fa-laptop"></i>{" "}
+            <i className="fa-solid fa-laptop"></i>{" "}
             <a href={website ? website : "N/A"} target="*">
               Website
             </a>
           </p>
 
           <span onClick={() => setShowHours(!showHours)}>
-            <i class="fa-regular fa-clock"></i>{" "}
+            <i className="fa-regular fa-clock"></i>{" "}
             <span className="BusinessPage__Details__Contact__Hours">
               {!businessOpen ? "Closed now:" : "Open now:"}
             </span>{" "}
@@ -253,24 +251,24 @@ const Show = ({ setFavs, favs, currentUser, findBusinessByPlaceId }) => {
               </a>
             ) : (
               <p>
-                <i class="fa-solid fa-location-dot"></i>{" "}
+                <i className="fa-solid fa-location-dot"></i>{" "}
                 <a href={`http://maps.google.com/?q=${name}`} target="*">
                   {businessDataFromAPI.formatted_address || address}
                 </a>
               </p>
             )}
             <p>
-              <i class="fa-solid fa-laptop"></i>{" "}
+              <i className="fa-solid fa-laptop"></i>{" "}
               <a href={website ? website : "N/A"} target="*">
                 Website
               </a>
             </p>
-            <a href="#">
-              <i class="fa-solid fa-phone"></i>{" "}
+            {/* <a href="#"> */}
+              <i className="fa-solid fa-phone"></i>{" "}
               {businessDataFromAPI.formatted_phone_number ||
                 contact_num ||
                 "N/A"}
-            </a>
+            {/* </a> */}
           </div>
         </div>
 

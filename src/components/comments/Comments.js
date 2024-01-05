@@ -1,18 +1,18 @@
 import React from "react";
-import axios from "axios";
-import { useState, useEffect } from "react";
-import { Badge, Button } from "react-bootstrap";
-import { useParams } from "react-router-dom";
-import Comment from "./Comment";
-import CommentForm from "./CommentForm";
+// import axios from "axios";
+import { useState } from "react";
+import {  Button } from "react-bootstrap";
+// import { useParams } from "react-router-dom";
+// import Comment from "./Comment";
+// import CommentForm from "./CommentForm";
 
-const API = process.env.REACT_APP_API_URL;
+// const API = process.env.REACT_APP_API_URL;
 
 const Comments = ({ comments }) => {
   // const [comments, setComments] = useState([]);
   // const [showForm, setShowForm] = useState(false);
   const [showComments, setShowComments] = useState(false);
-  let { id } = useParams();
+  // let { id } = useParams();
 
   // console.log("comments", comments.length)
 

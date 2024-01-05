@@ -1,17 +1,17 @@
 import "./Comment.scss";
 import React from "react";
-import { useState } from "react";
-import { Button } from "react-bootstrap";
-import CommentForm from "./CommentForm";
+// import { useState } from "react";
+// import { Button } from "react-bootstrap";
+// import CommentForm from "./CommentForm";
 import ReadMoreAndLess from "react-read-more-less";
 
 const Comment = ({ comment, handleDelete }) => {
-  const [viewEditForm, toggleEditForm] = useState(false);
+  // const [viewEditForm, toggleEditForm] = useState(false);
   // const [showForm, setShowForm] = useState(false);
 
-  const toggleView = () => {
-    toggleEditForm(!viewEditForm);
-  };
+  // const toggleView = () => {
+  //   toggleEditForm(!viewEditForm);
+  // };
 
   return (
     // <div className="Review">
@@ -27,7 +27,7 @@ const Comment = ({ comment, handleDelete }) => {
       {/* <ul> */}
       <li className="Comment__Commenter">
         <h6>{comment.author_name}</h6>{" "}
-        <p>
+        {/* <p> */}
           <ReadMoreAndLess
             className="Comment__Read__More"
             readMoreText="Show more"
@@ -35,7 +35,7 @@ const Comment = ({ comment, handleDelete }) => {
           >
             {comment.text}
           </ReadMoreAndLess>
-        </p>
+        {/* </p> */}
       </li>
       {/* <>
               <Button onClick={() => setShowForm(!showForm)} variant="dark">
