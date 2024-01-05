@@ -3,12 +3,12 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { Badge, Button } from "react-bootstrap";
 import { useParams } from "react-router-dom";
-import  Comment  from "./Comment";
-import  CommentForm  from "./CommentForm";
+import Comment from "./Comment";
+import CommentForm from "./CommentForm";
 
 const API = process.env.REACT_APP_API_URL;
 
-const Comments = ({comments}) => {
+const Comments = ({ comments }) => {
   // const [comments, setComments] = useState([]);
   // const [showForm, setShowForm] = useState(false);
   const [showComments, setShowComments] = useState(false);
@@ -69,12 +69,12 @@ const Comments = ({comments}) => {
 
   return (
     // <section className="comments-section">
-      <Button variant="light" onClick={() => setShowComments(!showComments)}>
-        Comments{" "}
-        {/* <Badge bg={comments ? "secondary" : "danger"}>
+    <Button variant="light" onClick={() => setShowComments(!showComments)}>
+      Comments{" "}
+      {/* <Badge bg={comments ? "secondary" : "danger"}>
           {comments.length}
         </Badge> */}
-      </Button>
+    </Button>
     //   <br />
     //   <br />
     //   {showComments && (

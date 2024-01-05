@@ -1,7 +1,9 @@
+import "./Comment.scss";
 import React from "react";
 import { useState } from "react";
 import { Button } from "react-bootstrap";
 import CommentForm from "./CommentForm";
+import ReadMoreAndLess from "react-read-more-less";
 
 const Comment = ({ comment, handleDelete }) => {
   const [viewEditForm, toggleEditForm] = useState(false);
@@ -21,18 +23,19 @@ const Comment = ({ comment, handleDelete }) => {
     //     />
     //   ) : (
 
-    <section className="comment-section">
+    <section className="Comment">
       {/* <ul> */}
-      <li className="comment-box">
-        {comment.author_name}: {comment.text}{" "}
-        <>
-        <Button variant="warning" onClick={toggleView}>
-          {!viewEditForm ? "Edit" : "See Comment"}
-        </Button>
-        <Button variant="danger" onClick={() => handleDelete(comment.id)}>
-          Delete
-          </Button>
-          </>
+      <li className="Comment__Commenter">
+        <h6>{comment.author_name}</h6>{" "}
+        <p>
+          <ReadMoreAndLess
+            className="Comment__Read__More"
+            readMoreText="Show more"
+            readLessText="Show less"
+          >
+            {comment.text}
+          </ReadMoreAndLess>
+        </p>
       </li>
       {/* <>
               <Button onClick={() => setShowForm(!showForm)} variant="dark">
