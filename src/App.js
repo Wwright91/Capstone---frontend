@@ -14,6 +14,7 @@ import Show from "./components/businessPage/BusinessPage";
 import Resources from "./components/resources/Resources";
 import NewBusiness from "./components/newBusiness/NewBusiness";
 import Footer from "./components/footer/Footer";
+import LoginModal from "./components/loginModal/LoginModal";
 // import { browserLocalPersistence, getAuth, setPersistence } from "firebase/auth";
 
 const API = process.env.REACT_APP_API_URL;
@@ -21,6 +22,7 @@ const API = process.env.REACT_APP_API_URL;
 function App() {
   // const [currentUser, setcurrentUser] = useState(getAuth().currentUser||null);
   const [businesses, setBusinesses] = useState([]);
+  const [openLoginModal, setOpenLoginModal] = useState(false);
 
   // useEffect(()=>{
 
@@ -50,7 +52,14 @@ function App() {
 
   return (
     <Router>
-      <Nav />
+      <Nav
+        openLoginModal={openLoginModal}
+        setOpenLoginModal={setOpenLoginModal}
+      />
+      <LoginModal
+        openLoginModal={openLoginModal}
+        setOpenLoginModal={setOpenLoginModal}
+      />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/sign-in" element={<SignIn />} />

@@ -11,9 +11,9 @@ import { Navbar } from "react-bootstrap";
 
 import hero from "../../assets/hero.png";
 
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+// import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
-const Nav = () => {
+const Nav = ({ openLoginModal, setOpenLoginModal }) => {
   // const navigate = useNavigate();
   return (
     <Navbar className="nav">
@@ -40,6 +40,9 @@ const Nav = () => {
         <Button variant="light">
           <Link to="/profile">User Profile</Link>
         </Button>{" "}
+        <Button variant="dark" onClick={() => setOpenLoginModal(true)}>
+          Log In
+        </Button>
         {/* <Button
               variant="dark"
               onClick={async () => {
@@ -51,7 +54,7 @@ const Nav = () => {
               </Button> */}
       </div>
       {/* )} */}
-      <AccountCircleIcon className="nav__accountIcon" />
+      {/* <AccountCircleIcon className="nav__accountIcon" /> */}
     </Navbar>
   );
 };
