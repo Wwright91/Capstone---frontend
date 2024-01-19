@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 import { Button } from "react-bootstrap";
 // import Tab from "react-bootstrap/Tab";
 // import Tabs from "react-bootstrap/Tabs";
-// import ShowMap from "../ShowMap";
+import ShowMap from "../map/ShowMap";
 
 // import Comments from "../comments/Comments";
 import Comment from "../comments/Comment";
@@ -15,6 +15,7 @@ import { StarRatingAndReviews } from "../StarRating";
 import BusinessHours from "../businessHours/BusinessHours";
 
 const API = process.env.REACT_APP_API_URL;
+// const API_key = ""
 const API_key = process.env.REACT_APP_GOOGLE_API_KEY;
 
 const Show = ({ setFavs, favs, currentUser, findBusinessByPlaceId }) => {
@@ -244,7 +245,10 @@ const Show = ({ setFavs, favs, currentUser, findBusinessByPlaceId }) => {
           </div>
           <div className="BusinessPage__Details__Expanded__Location">
             <h5>Location and contact</h5>
-            <p>Map</p>
+            <div className="BusinessPage__Details__Expanded__Location__Map">
+        <ShowMap business={business}/>
+            </div>
+            <div>
             {!is_store ? (
               <a href={website ? website : "N/A"} target="*">
                 Online Only
@@ -268,11 +272,12 @@ const Show = ({ setFavs, favs, currentUser, findBusinessByPlaceId }) => {
               {businessDataFromAPI.formatted_phone_number ||
                 contact_num ||
                 "N/A"}
-            {/* </a> */}
+              {/* </a> */}
+              </div>
           </div>
         </div>
 
-        <div className="BusinessPage__Map"></div>
+      
       </div>
       {/* <div className="BusinessPage__Description">
         <Tabs activeKey={key} onSelect={(k) => setKey(k)}>

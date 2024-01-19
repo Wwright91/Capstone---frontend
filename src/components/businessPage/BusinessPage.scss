@@ -153,12 +153,14 @@
       gap: 30px;
       height: 300px;
 
-      div {
-        border: 1px solid rgb(56, 56, 56);
-        padding: 30px;
-      }
+      // div {
+      //   border: 1px solid rgb(56, 56, 56);
+      //   padding: 30px;
+      // }
 
       &__Rating {
+        border: 1px solid rgb(56, 56, 56);
+        padding: 30px;
 
         span {
           display: flex;
@@ -169,7 +171,18 @@
           font-size: 22px;
         }
       }
-    }
 
+      &__Details {
+        border: 1px solid rgb(56, 56, 56);
+        padding: 30px;
+      }
+
+      &__Location {
+        border: 1px solid rgb(56, 56, 56);
+        padding: 30px;
+        display: grid;
+        grid-template-rows: 0.5fr 2.5fr 1fr;
+      }
+    }
   }
 }

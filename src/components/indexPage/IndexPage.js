@@ -3,7 +3,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import BusinessCard from "../businessCard/BusinessCard";
 import { useSearchParams } from "react-router-dom";
-// import MapContainer from "../MapContainer";
+import MapContainer from "../map/MapContainer";
 import SearchBar from "../searchBar/SearchBar";
 
 const API = process.env.REACT_APP_API_URL;
@@ -51,7 +51,7 @@ export default function IndexPage({ businesses, findBusinessByPlaceId }) {
           })}
         </div>
         <div className="IndexPage__Map">
-          {/* <MapContainer businesses={display} /> */}
+          <MapContainer businesses={filteredBusinesses} />
         </div>
       </div>
     </div>
