@@ -26,7 +26,7 @@
     "react-material-ui-carousel": "^3.4.2",
     "react-read-more-less": "^0.1.6",
     "react-router-dom": "^6.11.0",
-    "react-scripts": "5.0.1",
+    "react-scripts": "^3.0.1",
     "sass": "^1.66.1",
     "scss-react": "^1.1.1",
     "web-vitals": "^2.1.4"
