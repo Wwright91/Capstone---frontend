@@ -7,9 +7,13 @@ import {
 } from "firebase/auth";
 import auth from "../../base";
 import { useNavigate } from "react-router-dom";
+import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
 
 const API = process.env.REACT_APP_API_URL;
-export default function SignUp({ currentUser }) {
+export default function SignIn({ setOpenLoginModal }) {
   const navigate = useNavigate();
 
   const [signIn, setSignIn] = useState(true);
@@ -45,9 +49,9 @@ export default function SignUp({ currentUser }) {
         form.password
       );
 
-      console.log(newUser);
       axios.post(`${API}/users`, { ...form, uid: newUser?.user?.uid });
-
+      setForm({ ...form, [e.target.id]: "" });
+      setOpenLoginModal(false);
       navigate("/profile");
       console.log(newUser);
     } catch (error) {
@@ -63,6 +67,8 @@ export default function SignUp({ currentUser }) {
         form.login_email,
         form.password
       );
+      setForm({ ...form, [e.target.id]: "" });
+      setOpenLoginModal(false);
       navigate("/businesses");
       console.log(user);
     } catch (error) {
@@ -81,83 +87,108 @@ export default function SignUp({ currentUser }) {
           </button>
         </div>
         {signIn ? (
-          <form className="Sign_In__Form" onSubmit={(e) => register(e)}>
-            <h2>Create An Account</h2>
-            <label htmlFor="first">
-              First
-            </label>
-            <input
-              type="text"
+          <Box
+            component="form"
+            sx={{
+              "& .MuiTextField-root": { my: 1, width: "30ch" },
+            }}
+            noValidate
+            autoComplete="off"
+          >
+            <Typography
+              className="loginModal__title"
+              id="modal-modal-title"
+              variant="h6"
+              component="h2"
+            >
+              Please Create An Account
+            </Typography>
+
+            <TextField
               id="first_name"
+              label="First Name"
+              variant="outlined"
+              required
+              onChange={(e) => handleChange(e)}
               value={form.first_name}
-              onChange={(e) => handleChange(e)}
             />
-
-            <label htmlFor="last">
-              Last
-            </label>
-            <input
-              type="text"
+            <TextField
               id="last_name"
+              label="Last Name"
+              variant="outlined"
+              required
+              onChange={(e) => handleChange(e)}
               value={form.last_name}
-              onChange={(e) => handleChange(e)}
             />
-
-            <label htmlFor="email">
-              Email
-            </label>
-            <input
-              type="email"
+            <TextField
               id="email"
+              label="Email"
+              variant="outlined"
+              required
+              onChange={(e) => handleChange(e)}
               value={form.email}
-              onChange={(e) => handleChange(e)}
             />
-
-            <label htmlFor="newUsername">
-              Username
-            </label>
-            <input
-              type="text"
+            <TextField
               id="username"
+              label="Username"
+              variant="outlined"
+              required
+              onChange={(e) => handleChange(e)}
               value={form.username}
-              onChange={(e) => handleChange(e)}
             />
-
-            <label htmlFor="newPassword">
-              Password
-            </label>
-            <input
-              type="text"
+            <TextField
               id="password"
-              value={form.password}
+              label="Password"
+              type="password"
+              variant="outlined"
+              required
               onChange={(e) => handleChange(e)}
+              value={form.password}
             />
-            <button type="submit">Sign Up</button>
-          </form>
+            <Button variant="contained" onClick={register}>
+              Sign Up
+            </Button>
+          </Box>
         ) : (
-          <form className="Sign_In__Form" onSubmit={(e) => login(e)}>
-            <h2>Log In</h2>
-            <label htmlFor="login-email">
-              Email
-            </label>
-            <input
-              type="text"
+          <Box
+            component="form"
+            sx={{
+              "& .MuiTextField-root": { my: 1, width: "30ch" },
+            }}
+            noValidate
+            autoComplete="off"
+          >
+            <Typography
+              className="loginModal__title"
+              id="modal-modal-title"
+              variant="h6"
+              component="h2"
+            >
+              Please Log In
+            </Typography>
+
+            <TextField
               id="login_email"
-              value={form.login_email}
+              label="Email"
+              variant="outlined"
+              required
               onChange={(e) => handleChange(e)}
+              value={form.login_email}
             />
 
-            <label htmlFor="password">
-              Password
-            </label>
-            <input
-              type="text"
+            <TextField
               id="password"
-              value={form.password}
+              label="Password"
+              type="password"
+              variant="outlined"
+              required
               onChange={(e) => handleChange(e)}
+              value={form.password}
             />
-            <button type="submit">Log In</button>
-          </form>
+            <Button variant="contained" onClick={login}>
+              Log In
+            </Button>
+          </Box>
         )}
       </div>
     </div>

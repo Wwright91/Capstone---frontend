@@ -1,85 +1,3 @@
-// .BusinessPage {
-//   display: grid;
-//   background-color: #000;
-//   grid-template-columns: repeat(2, 1fr);
-//   grid-template-rows: 3fr 1fr;
-//   gap: 20px;
-//   padding-top: 80px;
-//   overflow-x: hidden;
-//   padding: 40px 0 120px;
-
-//   img {
-//     height: 400px;
-//     width: 400px;
-//     margin: 90px 150px;
-//     box-shadow: rgb(73, 80, 90) 0px 15px 30px 10px;
-//   }
-
-//   tr,
-//   th {
-//     background-color: #f1cc24;
-//     box-shadow: rgb(0, 0, 0) 0px 0px 0px 3px, rgb(0, 0, 0) 0px 0px 0px 6px,
-//       rgb(0, 0, 0) 0px 0px 0px 9px, #000000 0px 0px 0px 12px,
-//       rgb(0, 0, 0) 0px 0px 0px 15px;
-//   }
-
-//   th {
-//     padding-bottom: 20px;
-//   }
-
-//   td > h5 {
-//     color: black;
-//   }
-
-//   a {
-//     text-decoration: none;
-//     color: #000;
-//   }
-
-//   a:hover {
-//     color: white;
-//   }
-
-//   .fa-solid {
-//     border: 1px solid white;
-//     padding: 5px;
-//     border-radius: 40px;
-//     font-size: 10px;
-//   }
-
-//   .fa-solid:hover {
-//     color: rgb(0, 0, 0);
-//     background-color: white;
-//   }
-
-//   &__Details {
-//     margin-right: 60px;
-
-//     h1 {
-//       font-family: "Bebas Neue", sans-serif;
-//       text-decoration: #f1cc24 double underline;
-//       color: white;
-//     }
-
-//     h3,
-//     h5,
-//     h6 {
-//       color: white;
-//     }
-//   }
-
-//   &__Description {
-//     margin-left: 30px;
-//     margin-top: 40px;
-//     color: white;
-//   }
-
-//   &__Map {
-//     max-width: 100%;
-//     width: 20%;
-//   }
-// }
-
 .BusinessPage {
   &__Details {
     margin: 50px 100px 100px;
@@ -137,7 +55,8 @@
 
     &__Img {
       display: grid;
-      grid-template-columns: 55% 45%;
+      grid-template-columns: 2fr 1fr;
+      margin: 0 100px;
 
       img {
         height: 400px;
@@ -153,12 +72,9 @@
       gap: 30px;
       height: 300px;
 
-      div {
+      &__Rating {
         border: 1px solid rgb(56, 56, 56);
         padding: 30px;
-      }
-
-      &__Rating {
 
         span {
           display: flex;
@@ -169,7 +85,18 @@
           font-size: 22px;
         }
       }
-    }
 
+      &__Details {
+        border: 1px solid rgb(56, 56, 56);
+        padding: 30px;
+      }
+
+      &__Location {
+        border: 1px solid rgb(56, 56, 56);
+        padding: 30px;
+        display: grid;
+        grid-template-rows: 0.5fr 2.5fr 1fr;
+      }
+    }
   }
 }

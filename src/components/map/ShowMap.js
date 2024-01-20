@@ -1,52 +1,54 @@
-// import ".Map.scss"
-// import React, { useEffect, useState } from "react";
-// import { Map, GoogleApiWrapper, Marker } from "google-maps-react";
+import "./Map.scss";
+import React, { useEffect, useState } from "react";
+import { Map, GoogleApiWrapper, Marker } from "google-maps-react";
 
-// const ShowMap = ({ business }) => {
-//   const styles = {
-//     map: {
-//       height: "200px",
-//       "max-width": "100%",
+const API_key = process.env.REACT_APP_GOOGLE_API_KEY;
 
-//       "grid-row": "span 1",
-//       overflow: "auto",
-//       position: "relative",
-//     },
-//   };
+const ShowMap = ({ business }) => {
+  const styles = {
+    map: {
+      height: "200px",
+      "max-width": "100%",
 
-//   const { address } = business;
+      "grid-row": "span 1",
+      overflow: "auto",
+      position: "relative",
+    },
+  };
 
-//   const [marker, setMarker] = useState([]);
+  const { address } = business;
 
-//   const geocoder = new window.google.maps.Geocoder();
+  const [marker, setMarker] = useState([]);
 
-//   useEffect(() => {
-//     geocoder.geocode({ address: address }, (results, status) => {
-//       if (status === "OK") {
-//         console.log(business);
-//         const { lat, lng } = results[0].geometry.location;
+  const geocoder = new window.google.maps.Geocoder();
 
-//         setMarker({ address, position: { lat: lat(), lng: lng() } });
-//       } else {
-//         console.error(`Geocoding error:${status}`);
-//       }
-//     });
-//   }, []);
+  useEffect(() => {
+    geocoder.geocode({ address: address }, (results, status) => {
+      if (status === "OK") {
+        console.log(business);
+        const { lat, lng } = results[0].geometry.location;
 
-//   return (
-//     <div className="map-container">
-//       <Map
-//         google={window.google}
-//         zoom={12}
-//         initialCenter={{ lat: 40.7128, lng: -74.006 }} // Set the initial map center
-//         style={styles.map}
-//       >
-//         <Marker position={marker.position} label={marker.address} />
-//       </Map>
-//     </div>
-//   );
-// };
+        setMarker({ address, position: { lat: lat(), lng: lng() } });
+      } else {
+        console.error(`Geocoding error:${status}`);
+      }
+    });
+  }, []);
 
-// export default GoogleApiWrapper({
-//   apiKey: "",
-// })(ShowMap);
+  return (
+    <div className="ShowMap">
+      <Map
+        google={window.google}
+        zoom={12}
+        initialCenter={{ lat: 40.7128, lng: -74.006 }} // Set the initial map center
+        style={styles.map}
+      >
+        <Marker position={marker.position} label={marker.address} />
+      </Map>
+    </div>
+  );
+};
+
+export default GoogleApiWrapper({
+  apiKey: `${API_key}`,
+})(ShowMap);

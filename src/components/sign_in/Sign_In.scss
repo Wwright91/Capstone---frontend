@@ -1,15 +1,4 @@
 .Sign_In {
-  background-image: url("https://icm.aexp-static.com/content/dam/contenthub/us/en/images/us/small-business/openforum/wp-content/uploads/2018/02/black-business-woman-davis-header.jpg?imwidth=968");
-  background-size: cover;
-  display: grid;
-  grid-template-columns: 25% 50% 25%;
-  height: 90vh;
-
-  &__Container {
-    width: 90%;
-    margin-left: 550px;
-  }
-
   &__Buttons {
     margin-top: 60px;
 
@@ -25,10 +14,10 @@
   }
 
   &__Form {
-    display: grid;
+    // display: grid;
     background-color: rgb(253, 253, 238);
-    border: 4px solid black;
-    padding: 10px;
+    // border: 4px solid black;
+    // padding: 10px;
 
     h2 {
       text-align: center;

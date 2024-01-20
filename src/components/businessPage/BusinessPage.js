@@ -6,15 +6,17 @@ import { useParams } from "react-router-dom";
 import { Button } from "react-bootstrap";
 // import Tab from "react-bootstrap/Tab";
 // import Tabs from "react-bootstrap/Tabs";
-// import ShowMap from "../ShowMap";
+import ShowMap from "../map/ShowMap";
 
 // import Comments from "../comments/Comments";
 import Comment from "../comments/Comment";
 // import CommentForm from "../comments/CommentForm";
 import { StarRatingAndReviews } from "../StarRating";
 import BusinessHours from "../businessHours/BusinessHours";
+import BusinessPhotos from "../businessPhotos/BusinessPhotos";
 
 const API = process.env.REACT_APP_API_URL;
+// const API_key = ""
 const API_key = process.env.REACT_APP_GOOGLE_API_KEY;
 
 const Show = ({ setFavs, favs, currentUser, findBusinessByPlaceId }) => {
@@ -33,6 +35,7 @@ const Show = ({ setFavs, favs, currentUser, findBusinessByPlaceId }) => {
   const [showHours, setShowHours] = useState(false);
   const [businessOpen, setBusinessOpen] = useState(null);
   const [businessReviews, setBusinessReviews] = useState([]);
+  const [businessPhotos, setBusinessPhotos] = useState([]);
 
   useEffect(() => {
     const backendData = axios.get(`${API}/businesses/${id}`);
@@ -52,6 +55,7 @@ const Show = ({ setFavs, favs, currentUser, findBusinessByPlaceId }) => {
         placeId &&
           setBusinessOpen(res[1].data["result"]["opening_hours"]["open_now"]);
         placeId && setBusinessReviews(res[1].data["result"]["reviews"]);
+        placeId && setBusinessPhotos(res[1].data["result"]["photos"]);
       })
       .catch((c) => console.error("catch", c));
   }, [placeId, id]);
@@ -62,23 +66,8 @@ const Show = ({ setFavs, favs, currentUser, findBusinessByPlaceId }) => {
     // "data from backend",
     // business
   );
-  // let hours = businessDataFromAPI["opening_hours"]["businessHours"]
-  //   // console.log(businessDataFromAPI.opening_hours)
-  //   console.log(hours)
-  // .map((el, i) => el[i].split(" "))[0]
 
-  // console.log(businessHours[0].close.time)
-
-  // console.log(businessOpen)
-
-  const {
-    name,
-    address,
-    contact_num,
-    img,
-    website,
-    is_store,
-  } = business;
+  const { name, address, contact_num, img, website, is_store } = business;
 
   // const handleAdd = (newComment) => {
   //   axios
@@ -183,16 +172,17 @@ const Show = ({ setFavs, favs, currentUser, findBusinessByPlaceId }) => {
             </p>
           )}
           {/* <a href="#"> */}
-            <i className="fa-solid fa-phone"></i>{" "}
-            {businessDataFromAPI.formatted_phone_number || contact_num || "N/A"}
+          <i className="fa-solid fa-phone"></i>{" "}
+          {businessDataFromAPI.formatted_phone_number || contact_num || "N/A"}
           {/* </a> */}
           <p>
             <i className="fa-solid fa-laptop"></i>{" "}
-            <a href={website ? website : "N/A"} target="*">
-              Website
-            </a>
+            {website && (
+              <a href={website} target="*">
+                Website
+              </a>
+            )}
           </p>
-
           <span onClick={() => setShowHours(!showHours)}>
             <i className="fa-regular fa-clock"></i>{" "}
             <span className="BusinessPage__Details__Contact__Hours">
@@ -200,7 +190,6 @@ const Show = ({ setFavs, favs, currentUser, findBusinessByPlaceId }) => {
             </span>{" "}
             See all hours <i className="fa-solid fa-circle-info"></i>{" "}
           </span>
-
           {showHours && (
             <BusinessHours
               business={business}
@@ -211,8 +200,12 @@ const Show = ({ setFavs, favs, currentUser, findBusinessByPlaceId }) => {
           )}
         </div>
         <div className="BusinessPage__Details__Img">
-          <div>Temp</div>
-          <img src={img} alt={name} />
+          <div>
+            <img src={img} alt={name} />
+          </div>
+          {businessPhotos.length !== 0 && (
+            <BusinessPhotos photos={businessPhotos} />
+          )}
         </div>
         <div className="BusinessPage__Details__Expanded">
           <div className="BusinessPage__Details__Expanded__Rating">
@@ -244,35 +237,39 @@ const Show = ({ setFavs, favs, currentUser, findBusinessByPlaceId }) => {
           </div>
           <div className="BusinessPage__Details__Expanded__Location">
             <h5>Location and contact</h5>
-            <p>Map</p>
-            {!is_store ? (
-              <a href={website ? website : "N/A"} target="*">
-                Online Only
-              </a>
-            ) : (
+            <div className="BusinessPage__Details__Expanded__Location__Map">
+              <ShowMap business={business} />
+            </div>
+            <div>
+              {!is_store ? (
+                website && (
+                  <a href={website} target="*">
+                    Online Only
+                  </a>
+                )
+              ) : (
+                <p>
+                  <i className="fa-solid fa-location-dot"></i>{" "}
+                  <a href={`http://maps.google.com/?q=${name}`} target="*">
+                    {businessDataFromAPI.formatted_address || address}
+                  </a>
+                </p>
+              )}
               <p>
-                <i className="fa-solid fa-location-dot"></i>{" "}
-                <a href={`http://maps.google.com/?q=${name}`} target="*">
-                  {businessDataFromAPI.formatted_address || address}
+                <i className="fa-solid fa-laptop"></i>{" "}
+                <a href={website ? website : "N/A"} target="*">
+                  Website
                 </a>
               </p>
-            )}
-            <p>
-              <i className="fa-solid fa-laptop"></i>{" "}
-              <a href={website ? website : "N/A"} target="*">
-                Website
-              </a>
-            </p>
-            {/* <a href="#"> */}
+              {/* <a href="#"> */}
               <i className="fa-solid fa-phone"></i>{" "}
               {businessDataFromAPI.formatted_phone_number ||
                 contact_num ||
                 "N/A"}
-            {/* </a> */}
+              {/* </a> */}
+            </div>
           </div>
         </div>
-
-        <div className="BusinessPage__Map"></div>
       </div>
       {/* <div className="BusinessPage__Description">
         <Tabs activeKey={key} onSelect={(k) => setKey(k)}>
