@@ -1,5 +1,5 @@
 import "./Map.scss";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Map, GoogleApiWrapper, Marker } from "google-maps-react";
 
 const API_key = process.env.REACT_APP_GOOGLE_API_KEY;
@@ -20,7 +20,9 @@ const ShowMap = ({ business }) => {
 
   const [marker, setMarker] = useState([]);
 
-  const geocoder = new window.google.maps.Geocoder();
+  // const geocoder = new window.google.maps.Geocoder();
+  const geocoder = useMemo(() => new window.google.maps.Geocoder(), []);
+
 
   useEffect(() => {
     geocoder.geocode({ address: address }, (results, status) => {
@@ -33,7 +35,7 @@ const ShowMap = ({ business }) => {
         console.error(`Geocoding error:${status}`);
       }
     });
-  }, []);
+  }, [business, geocoder, address]);
 
   return (
     <div className="ShowMap">
