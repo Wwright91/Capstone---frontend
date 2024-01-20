@@ -13,27 +13,28 @@ import { useEffect, useState } from "react";
 import Show from "./components/businessPage/BusinessPage";
 import Resources from "./components/resources/Resources";
 import NewBusiness from "./components/newBusiness/NewBusiness";
-import Footer from "./components/footer/Footer";
+// import Footer from "./components/footer/Footer";
 import LoginModal from "./components/loginModal/LoginModal";
-import { browserLocalPersistence, getAuth, setPersistence } from "firebase/auth";
-
+import {
+  browserLocalPersistence,
+  getAuth,
+  setPersistence,
+} from "firebase/auth";
 
 const API = process.env.REACT_APP_API_URL;
 
 function App() {
-  const [currentUser, setcurrentUser] = useState(getAuth().currentUser||null);
+  const [currentUser, setcurrentUser] = useState(getAuth().currentUser || null);
   const [businesses, setBusinesses] = useState([]);
   const [openLoginModal, setOpenLoginModal] = useState(false);
 
-  useEffect(()=>{
-
+  useEffect(() => {
     auth.onAuthStateChanged((user) => {
       setcurrentUser(user);
     });
 
-    setPersistence(getAuth(),browserLocalPersistence)
-
-  }, [])
+    setPersistence(getAuth(), browserLocalPersistence);
+  }, []);
 
   useEffect(() => {
     axios
@@ -63,7 +64,7 @@ function App() {
       />
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/sign-in" element={<SignIn currentUser={currentUser}/>} />
+        <Route path="/sign-in" element={<SignIn currentUser={currentUser} />} />
         <Route
           path="/businesses"
           element={
@@ -77,12 +78,17 @@ function App() {
           path="/businesses/:id"
           element={<Show findBusinessByPlaceId={findBusinessByPlaceId} />}
         />
-        <Route path="/profile" element={<Profile businesses={businesses} currentUser={currentUser} />} />
+        <Route
+          path="/profile"
+          element={
+            <Profile businesses={businesses} currentUser={currentUser} />
+          }
+        />
         {/* <Route path="/profile/edit/:user" element={< EditProfile/>} /> */}
         <Route path="/resources" element={<Resources />} />
         <Route path="/new" element={<NewBusiness />} />
       </Routes>
-      <Footer />
+      {/* <Footer /> */}
     </Router>
   );
 }

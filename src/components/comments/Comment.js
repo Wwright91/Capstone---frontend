@@ -29,7 +29,7 @@ const Comment = ({ comment, handleDelete }) => {
         <h6>{comment.author_name}</h6>{" "}
         {/* <p> */}
           <ReadMoreAndLess
-            className="Comment__Read__More"
+            className="Comment__readMore"
             readMoreText="Show more"
             readLessText="Show less"
           >
