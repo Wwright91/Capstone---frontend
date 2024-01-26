@@ -20,7 +20,7 @@ import { yellow } from "@mui/material/colors";
 
 import hero from "../../assets/hero.png";
 
-const pages = ["Products", "Pricing", "Blog"];
+const pages = ["Browse Businesses", "Browse Resources", "Refer A Business"];
 
 const Nav = ({ setOpenLoginModal, user }) => {
   const [anchorElNav, setAnchorElNav] = useState(null);
@@ -51,7 +51,7 @@ const Nav = ({ setOpenLoginModal, user }) => {
             variant="h6"
             noWrap
             component="a"
-            href="#app-bar-with-responsive-menu"
+            href="/"
             sx={{
               mr: 2,
               display: { xs: "none", md: "flex" },
@@ -63,9 +63,7 @@ const Nav = ({ setOpenLoginModal, user }) => {
             }}
           >
             <Navbar.Brand>
-              <Link to="/">
-                <img className="nav__logo" src={hero} alt="hero" />
-              </Link>
+              <img className="nav__logo" src={hero} alt="hero" />
             </Navbar.Brand>
           </Typography>
 
@@ -109,7 +107,7 @@ const Nav = ({ setOpenLoginModal, user }) => {
             variant="h5"
             noWrap
             component="a"
-            href="#app-bar-with-responsive-menu"
+            href="/"
             sx={{
               mr: 2,
               display: { xs: "flex", md: "none" },
