@@ -25,6 +25,7 @@ const API = process.env.REACT_APP_API_URL;
 
 function App() {
   const [currentUser, setcurrentUser] = useState(getAuth().currentUser || null);
+  const [user, setUser] = useState([]);
   const [businesses, setBusinesses] = useState([]);
   const [openLoginModal, setOpenLoginModal] = useState(false);
 
@@ -35,6 +36,17 @@ function App() {
 
     setPersistence(getAuth(), browserLocalPersistence);
   }, []);
+
+  useEffect(() => {
+    if (currentUser?.uid) {
+      axios
+        .get(`${API}/users/firebase/${currentUser.uid}`)
+
+        .then((res) => {
+          setUser(res.data[0]);
+        });
+    }
+  }, [currentUser]);
 
   useEffect(() => {
     axios
@@ -54,10 +66,7 @@ function App() {
 
   return (
     <Router>
-      <Nav
-        openLoginModal={openLoginModal}
-        setOpenLoginModal={setOpenLoginModal}
-      />
+      <Nav setOpenLoginModal={setOpenLoginModal} user={user} />
       <LoginModal
         openLoginModal={openLoginModal}
         setOpenLoginModal={setOpenLoginModal}
