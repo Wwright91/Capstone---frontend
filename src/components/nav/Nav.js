@@ -1,57 +1,195 @@
+import React, { useState } from "react";
 import "./Nav.scss";
-
+import { Navbar } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
-// import Logo from "../assets/Melanated-Diamonds.png";
-// import Login from "../assets/login.png";
 import { signOut } from "firebase/auth";
 import auth from "../../base";
-
-import Button from "react-bootstrap/Button";
-import { Navbar } from "react-bootstrap";
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Toolbar from "@mui/material/Toolbar";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
+import Menu from "@mui/material/Menu";
+import MenuIcon from "@mui/icons-material/Menu";
+import Container from "@mui/material/Container";
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import Tooltip from "@mui/material/Tooltip";
+import MenuItem from "@mui/material/MenuItem";
+import { yellow } from "@mui/material/colors";
 
 import hero from "../../assets/hero.png";
 
-// import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+const pages = ["Browse Businesses", "Browse Resources", "Refer A Business"];
 
-const Nav = ({ setOpenLoginModal }) => {
+const Nav = ({ setOpenLoginModal, user }) => {
+  const [anchorElNav, setAnchorElNav] = useState(null);
+  const [anchorElUser, setAnchorElUser] = useState(null);
+
   const navigate = useNavigate();
-  return (
-    <Navbar className="nav">
-      <Navbar.Brand>
-        <Link to="/">
-          <img className="nav__logo" src={hero} alt="hero" />
-        </Link>
-      </Navbar.Brand>
 
-      {!auth.currentUser ? (
-        <Button variant="dark" onClick={() => setOpenLoginModal(true)}>
-          Create An Account / Log In
-        </Button>
-      ) : (
-        <div className="nav__buttons">
-          <Button variant="light">
-            <Link to="/businesses">Browse Businesses</Link>
-          </Button>{" "}
-          <Button variant="light">
-            <Link to="/resources">Browse Resources</Link>
-          </Button>{" "}
-          <Button variant="light">
-            <Link to="/profile">User Profile</Link>
-          </Button>{" "}
-          <Button
-            variant="dark"
-            onClick={async () => {
-              navigate("/");
-              await signOut(auth);
+  const handleOpenNavMenu = (event) => {
+    setAnchorElNav(event.currentTarget);
+  };
+  const handleOpenUserMenu = (event) => {
+    setAnchorElUser(event.currentTarget);
+  };
+
+  const handleCloseNavMenu = () => {
+    setAnchorElNav(null);
+  };
+
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null);
+  };
+
+  return (
+    <AppBar position="static" className="nav">
+      <Container maxWidth="xl" style={{ backgroundColor: "#f1cc24" }}>
+        <Toolbar disableGutters>
+          <Typography
+            variant="h6"
+            noWrap
+            component="a"
+            href="/"
+            sx={{
+              mr: 2,
+              display: { xs: "none", md: "flex" },
+              fontFamily: "monospace",
+              fontWeight: 700,
+              letterSpacing: ".3rem",
+              color: "inherit",
+              textDecoration: "none",
             }}
           >
-            Sign Out
-          </Button>
-        </div>
-      )}
-      {/* <AccountCircleIcon className="nav__accountIcon" /> */}
-    </Navbar>
+            <Navbar.Brand>
+              <img className="nav__logo" src={hero} alt="hero" />
+            </Navbar.Brand>
+          </Typography>
+
+          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+            <IconButton
+              size="large"
+              aria-label="account of current user"
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
+              onClick={handleOpenNavMenu}
+              color="inherit"
+            >
+              <MenuIcon />
+            </IconButton>
+            <Menu
+              id="menu-appbar"
+              anchorEl={anchorElNav}
+              anchorOrigin={{
+                vertical: "bottom",
+                horizontal: "left",
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "left",
+              }}
+              open={Boolean(anchorElNav)}
+              onClose={handleCloseNavMenu}
+              sx={{
+                display: { xs: "block", md: "none" },
+              }}
+            >
+              {pages.map((page) => (
+                <MenuItem key={page} onClick={handleCloseNavMenu}>
+                  <Typography textAlign="center">{page}</Typography>
+                </MenuItem>
+              ))}
+            </Menu>
+          </Box>
+          <Typography
+            variant="h5"
+            noWrap
+            component="a"
+            href="/"
+            sx={{
+              mr: 2,
+              display: { xs: "flex", md: "none" },
+              flexGrow: 1,
+              fontFamily: "monospace",
+              fontWeight: 700,
+              letterSpacing: ".3rem",
+              color: "inherit",
+              textDecoration: "none",
+            }}
+          >
+            MELANATED DIAMONDS
+          </Typography>
+
+          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+            {auth.currentUser && (
+              <div className="nav__buttons">
+                <Button variant="contained" color="inherit" size="small">
+                  <Link to="/businesses">Browse Businesses</Link>
+                </Button>{" "}
+                <Button variant="contained" color="inherit" size="small">
+                  <Link to="/resources">Browse Resources</Link>
+                </Button>{" "}
+                <Button variant="contained" color="inherit" size="small">
+                  <Link to="">Refer A Business</Link>
+                </Button>
+              </div>
+            )}
+          </Box>
+
+          {!auth.currentUser ? (
+            <Button
+              variant="outlined"
+              color="inherit"
+              onClick={() => {
+                setAnchorElUser(false);
+                setOpenLoginModal(true);
+              }}
+            >
+              Create An Account / Log In
+            </Button>
+          ) : (
+            <Box sx={{ flexGrow: 0 }}>
+              <Tooltip title="Open settings">
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  {user.uid && (
+                    <Avatar sx={{ bgcolor: yellow[800] }}>
+                      {user.first_name[0].toUpperCase()}
+                    </Avatar>
+                  )}
+                </IconButton>
+              </Tooltip>
+              <Menu
+                sx={{ mt: "45px" }}
+                id="menu-appbar"
+                anchorEl={anchorElUser}
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                open={Boolean(anchorElUser)}
+                onClose={handleCloseUserMenu}
+              >
+                <MenuItem
+                  onClick={async () => {
+                    navigate("/");
+                    await signOut(auth);
+                  }}
+                >
+                  <Typography>Logout</Typography>
+                </MenuItem>
+              </Menu>
+            </Box>
+          )}
+        </Toolbar>
+      </Container>
+    </AppBar>
   );
 };
-
 export default Nav;
