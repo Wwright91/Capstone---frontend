@@ -2,7 +2,8 @@ import "./Map.scss";
 import React, { useEffect, useMemo, useState } from "react";
 import { Map, GoogleApiWrapper, Marker } from "google-maps-react";
 
-const API_key = process.env.REACT_APP_GOOGLE_API_KEY;
+const API_key = ""
+// const API_key = process.env.REACT_APP_GOOGLE_API_KEY;
 
 const ShowMap = ({ business }) => {
   const styles = {
@@ -24,29 +25,29 @@ const ShowMap = ({ business }) => {
   const geocoder = useMemo(() => new window.google.maps.Geocoder(), []);
 
 
-  useEffect(() => {
-    geocoder.geocode({ address: address }, (results, status) => {
-      if (status === "OK") {
-        console.log(business);
-        const { lat, lng } = results[0].geometry.location;
+  // useEffect(() => {
+  //   geocoder.geocode({ address: address }, (results, status) => {
+  //     if (status === "OK") {
+  //       console.log(business);
+  //       const { lat, lng } = results[0].geometry.location;
 
-        setMarker({ address, position: { lat: lat(), lng: lng() } });
-      } else {
-        console.error(`Geocoding error:${status}`);
-      }
-    });
-  }, [business, geocoder, address]);
+  //       setMarker({ address, position: { lat: lat(), lng: lng() } });
+  //     } else {
+  //       console.error(`Geocoding error:${status}`);
+  //     }
+  //   });
+  // }, [business, geocoder, address]);
 
   return (
     <div className="ShowMap">
-      <Map
+      {/* <Map
         google={window.google}
         zoom={12}
         initialCenter={{ lat: 40.7128, lng: -74.006 }} // Set the initial map center
         style={styles.map}
       >
         <Marker position={marker.position} label={marker.address} />
-      </Map>
+      </Map> */}
     </div>
   );
 };

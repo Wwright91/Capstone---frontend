@@ -147,7 +147,7 @@ const Nav = ({ setOpenLoginModal, user }) => {
                 setOpenLoginModal(true);
               }}
             >
-              Create An Account / Log In
+              Create An Account
             </Button>
           ) : (
             <Box sx={{ flexGrow: 0 }}>

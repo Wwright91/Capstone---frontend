@@ -2,7 +2,8 @@ import "./Map.scss";
 import React, { useEffect, useState, useMemo } from "react";
 import { Map, GoogleApiWrapper, Marker } from "google-maps-react";
 
-const API_key = process.env.REACT_APP_GOOGLE_API_KEY;
+const API_key = ""
+// const API_key = process.env.REACT_APP_GOOGLE_API_KEY;
 
 const MapContainer = ({ businesses }) => {
   const styles = {
@@ -19,29 +20,29 @@ const MapContainer = ({ businesses }) => {
 
   const geocoder = useMemo(() => new window.google.maps.Geocoder(), []);
 
-  useEffect(() => {
-    setMarkers([]);
+  // useEffect(() => {
+  //   setMarkers([]);
 
-    businesses?.forEach(({ address }) => {
-      geocoder.geocode({ address: address }, (results, status) => {
-        if (status === "OK") {
-          const { lat, lng } = results[0].geometry.location;
+  //   businesses?.forEach(({ address }) => {
+  //     geocoder.geocode({ address: address }, (results, status) => {
+  //       if (status === "OK") {
+  //         const { lat, lng } = results[0].geometry.location;
 
-          // setMarkers([...markers,{"address":address,"position":{"lat":lat,"lng":lng}}])
-          setMarkers((prev) => [
-            ...prev,
-            { address, position: { lat: lat(), lng: lng() } },
-          ]);
-        } else {
-          console.error(`Geocoding error:${status}`);
-        }
-      });
-    });
-  }, [businesses, geocoder]);
+  //         // setMarkers([...markers,{"address":address,"position":{"lat":lat,"lng":lng}}])
+  //         setMarkers((prev) => [
+  //           ...prev,
+  //           { address, position: { lat: lat(), lng: lng() } },
+  //         ]);
+  //       } else {
+  //         console.error(`Geocoding error:${status}`);
+  //       }
+  //     });
+  //   });
+  // }, [businesses, geocoder]);
 
   return (
     <div className="MapContainer">
-      <Map
+      {/* <Map
         google={window.google}
         zoom={11}
         initialCenter={{ lat: 40.7128, lng: -74.006 }} // Set the initial map center
@@ -56,7 +57,7 @@ const MapContainer = ({ businesses }) => {
             />
           );
         })}
-      </Map>
+      </Map> */}
     </div>
   );
 };
