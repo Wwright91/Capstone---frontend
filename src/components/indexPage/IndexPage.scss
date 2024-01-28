@@ -17,7 +17,7 @@
     ul {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      row-gap: 10px;
+      row-gap: 5px;
     }
 
     ul :nth-child(-n + 4) {
@@ -25,7 +25,7 @@
     }
 
     ul :nth-child(n + 5) {
-      margin-left: 150px;
+      margin-left: 80px;
     }
 
     a {
