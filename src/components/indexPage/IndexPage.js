@@ -37,8 +37,10 @@ export default function IndexPage({ businesses, findBusinessByPlaceId }) {
 
   return (
     <div className="IndexPage">
-      <SearchBar filteredCategory={filteredCategory} businesses={businesses} />
       <div className="IndexPage__Container">
+        <div>
+          <SearchBar filteredCategory={filteredCategory} businesses={businesses} />
+          <br/>
         <div className="IndexPage__Cards">
           {filteredBusinesses.map((business, id) => {
             return (
@@ -49,7 +51,8 @@ export default function IndexPage({ businesses, findBusinessByPlaceId }) {
               />
             );
           })}
-        </div>
+          </div>
+          </div>
         <div className="IndexPage__Map">
           <MapContainer businesses={filteredBusinesses} />
         </div>
