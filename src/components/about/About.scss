@@ -1,0 +1,40 @@
+.About {
+  display: grid;
+  justify-content: center;
+  margin: 100px 200px 0;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+    rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+    rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+  background-color: rgba(226, 226, 226, 0.331);
+  padding: 20px;
+
+  h1 {
+    text-align: center;
+    font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
+      sans-serif;
+    font-weight: bold;
+    font-size: 2.7em;
+  }
+
+  h5 {
+    padding: 10px 40px;
+    text-indent: 40px;
+    text-align: justify;
+
+    i {
+      font-size: 1em;
+      text-transform: uppercase;
+      color: rgb(210, 41, 41);
+    }
+  }
+
+  &__Img {
+    display: grid;
+
+    img {
+      height: 300px;
+      width: 600px;
+      margin: auto;
+    }
+  }
+}
