@@ -46,7 +46,7 @@ const Nav = ({ setOpenLoginModal, user }) => {
   const links = [
     ["/businesses", "Browse Businesses"],
     ["/resources", "Browse Resources"],
-    ["", "Refer A Business"],
+    ["/refer-a-business", "Refer A Business"], ["/about", "About"]
   ];
 
   return (
