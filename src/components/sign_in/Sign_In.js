@@ -152,7 +152,7 @@ export default function SignIn({ setOpenLoginModal }) {
               >
                 Sign Up
               </Button>
-              <img src={hero} height="130px" width="130px" />
+              <img src={hero} alt="logo" height="130px" width="130px" />
             </div>
             <Typography align="center">
               Already Have An Account?{" "}
@@ -178,6 +178,7 @@ export default function SignIn({ setOpenLoginModal }) {
             <div style={{ display: "grid" }}>
               <img
                 src={hero}
+                alt="logo"
                 height="200px"
                 width="200px"
                 style={{ margin: "auto" }}
