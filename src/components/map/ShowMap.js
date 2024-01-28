@@ -20,9 +20,7 @@ const ShowMap = ({ business }) => {
 
   const [marker, setMarker] = useState([]);
 
-  // const geocoder = new window.google.maps.Geocoder();
   const geocoder = useMemo(() => new window.google.maps.Geocoder(), []);
-
 
   useEffect(() => {
     geocoder.geocode({ address: address }, (results, status) => {

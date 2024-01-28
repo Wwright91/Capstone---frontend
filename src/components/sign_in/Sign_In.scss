@@ -1,38 +1,15 @@
 .Sign_In {
   &__Buttons {
-    margin-top: 60px;
+    display: flex;
+    gap: 95px;
 
     button {
-      font-size: 20px;
-      border: 2px solid #000;
-    }
-
-    button:hover {
-      background-color: #f1cc24;
-      color: #8f6001;
+      margin-left: 65px;
+      padding: -330px;
     }
   }
 
   &__Form {
-    // display: grid;
-    background-color: rgb(253, 253, 238);
-    // border: 4px solid black;
-    // padding: 10px;
-
-    h2 {
-      text-align: center;
-    }
-
-    button {
-      margin: 5px 0 0 70px;
-      width: 50%;
-      border-radius: 10px;
-    }
-
-    button:hover {
-      background-color: #8f6001;
-      opacity: 80%;
-      text-decoration: none;
-    }
+    padding: 0 60px;
   }
 }

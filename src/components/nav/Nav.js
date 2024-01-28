@@ -43,6 +43,12 @@ const Nav = ({ setOpenLoginModal, user }) => {
     setAnchorElUser(null);
   };
 
+  const links = [
+    ["/businesses", "Browse Businesses"],
+    ["/resources", "Browse Resources"],
+    ["", "Refer A Business"],
+  ];
+
   return (
     <AppBar position="static" className="nav">
       <Container maxWidth="xl" style={{ backgroundColor: "#f1cc24" }}>
@@ -125,15 +131,11 @@ const Nav = ({ setOpenLoginModal, user }) => {
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {auth.currentUser && (
               <div className="nav__buttons">
-                <Button variant="contained" color="inherit" size="small">
-                  <Link to="/businesses">Browse Businesses</Link>
-                </Button>{" "}
-                <Button variant="contained" color="inherit" size="small">
-                  <Link to="/resources">Browse Resources</Link>
-                </Button>{" "}
-                <Button variant="contained" color="inherit" size="small">
-                  <Link to="">Refer A Business</Link>
-                </Button>
+                {links
+                  .filter((link) => link[0] !== window.location.pathname)
+                  .map((link) => (
+                    <Link to={link[0]}>{link[1]}</Link>
+                  ))}
               </div>
             )}
           </Box>
@@ -147,7 +149,7 @@ const Nav = ({ setOpenLoginModal, user }) => {
                 setOpenLoginModal(true);
               }}
             >
-              Create An Account / Log In
+              Create An Account
             </Button>
           ) : (
             <Box sx={{ flexGrow: 0 }}>

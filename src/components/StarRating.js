@@ -32,6 +32,10 @@ function StarRatingAndReviews({ rating, reviews }) {
           {stars} {reviews && reviews.length} reviews
         </p>
       )}
+      {/* <div>
+        <button>Prev</button>
+        <button>Next</button>
+      </div> */}
     </>
   );
 }

@@ -15,8 +15,6 @@ const MapContainer = ({ businesses }) => {
 
   const [markers, setMarkers] = useState([]);
 
-  // const geocoder= new window.google.maps.Geocoder()
-
   const geocoder = useMemo(() => new window.google.maps.Geocoder(), []);
 
   useEffect(() => {
@@ -27,7 +25,6 @@ const MapContainer = ({ businesses }) => {
         if (status === "OK") {
           const { lat, lng } = results[0].geometry.location;
 
-          // setMarkers([...markers,{"address":address,"position":{"lat":lat,"lng":lng}}])
           setMarkers((prev) => [
             ...prev,
             { address, position: { lat: lat(), lng: lng() } },
