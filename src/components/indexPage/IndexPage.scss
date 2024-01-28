@@ -1,7 +1,7 @@
 .IndexPage {
   &__Container {
     display: grid;
-    grid-template-columns: 3fr 1fr;
+    grid-template-columns: 1fr 1fr;
     padding: 30px 20px;
     gap: 20px;
   }
@@ -12,7 +12,7 @@
     background-color: #000;
     color: #f1cc24;
     margin-top: 20px;
-    padding: 10px 0;
+    height: 65px;
 
     ul {
       display: grid;
@@ -41,7 +41,7 @@
 
   &__Cards {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(4, 1fr);
     overflow-y: scroll;
     padding: 15px 15px;
@@ -55,6 +55,7 @@
     width: 100%;
     padding: 0px 10px;
     background-color: #000;
+    border-radius: 10px;
   }
 
   li {

@@ -2,17 +2,16 @@
   margin-top: 20px;
 
   &__Input {
-    margin-left: 400px;
-    width: 30%;
+    width: 87%;
     border-radius: 20px;
     padding: 5px;
     border-bottom-right-radius: 0;
     border-top-right-radius: 0;
-    text-indent: 35px;
+    text-indent: 80px;
   }
 
   &__Icon {
-    margin-left: -512px;
+    margin-left: -662px;
     pointer-events: none;
     border: none;
     background: none;
@@ -33,8 +32,8 @@
 
       img {
         position: absolute;
-        left: 790px;
-        top: 147px;
+        left: 576px;
+        top: 178px;
       }
     }
   }
