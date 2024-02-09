@@ -23,6 +23,7 @@
     "google-maps-react": "^2.0.6",
     "react": "^17.0.0 || ^18.0.0",
     "react-bootstrap": "^2.7.4",
+    "react-confetti": "^6.1.0",
     "react-dom": "^17.0.0 || ^18.0.0",
     "react-material-ui-carousel": "^3.4.2",
     "react-read-more-less": "^0.1.6",

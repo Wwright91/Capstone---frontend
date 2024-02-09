@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import axios from "axios"
+import axios from "axios";
 import "./ReferBusiness.scss";
+import ThankYou from "./ThankYou";
 import { useNavigate } from "react-router-dom";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
@@ -31,26 +32,39 @@ const ReferBusiness = () => {
   const [instagram, setInstagram] = useState(false);
   const [facebook, setFacebook] = useState(false);
   const [twitter, setTwitter] = useState(false);
+  const [submissionSuccessful, setsubmissionSuccessful] = useState(false);
+  const [open, setOpen] = useState(false);
 
   let navigate = useNavigate();
 
   function handleText(e) {
-    setFormDetails({...formDetails, [e.target.id]: e.target.value})
+    setFormDetails({ ...formDetails, [e.target.id]: e.target.value });
+  }
+
+  function handleClose() {
+    setOpen(false);
+    navigate("/");
   }
 
   function handleSubmit(e) {
     e.preventDefault();
-    axios.post(`${API}/referrals`, formDetails)
+    axios
+      .post(`${API}/referrals`, formDetails)
       .then(() => {
-          navigate("/")
-    }).catch((error) => {
-      console.log(error);
-    });
+        setOpen(true);
+        setsubmissionSuccessful(true);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   return (
     <div className="ReferBusiness">
       <div className="ReferBusiness__Details">
+        {submissionSuccessful && (
+          <ThankYou open={open} handleClose={handleClose} />
+        )}
         <Button variant="contained" onClick={() => navigate("/")}>
           {" "}
           <ArrowBackIosIcon /> Back
@@ -66,260 +80,260 @@ const ReferBusiness = () => {
         />
       </div>
       <div className="ReferBusiness__Form">
-          <FormControl id="owned" onSubmit={handleSubmit}>
-            <FormLabel
-              id="owned"
-              sx={{
-                fontWeight: "bold",
-                fontSize: 20,
-                "&.Mui-focused": { color: "#666" },
-              }}
-            >
-              Do you own the Black business you are trying to refer?
-            </FormLabel>
-            <RadioGroup row aria-labelledby="" name="row-radio-buttons-group">
-              <FormControlLabel
-                value="Yes"
-                control={<Radio />}
-                label="Yes"
-                onClick={() => setOwnedBusiness(true)}
+        <FormControl id="owned" onSubmit={handleSubmit}>
+          <FormLabel
+            id="owned"
+            sx={{
+              fontWeight: "bold",
+              fontSize: 20,
+              "&.Mui-focused": { color: "#666" },
+            }}
+          >
+            Do you own the Black business you are trying to refer?
+          </FormLabel>
+          <RadioGroup row aria-labelledby="" name="row-radio-buttons-group">
+            <FormControlLabel
+              value="Yes"
+              control={<Radio />}
+              label="Yes"
+              onClick={() => setOwnedBusiness(true)}
+            />
+            <FormControlLabel
+              value="No"
+              control={<Radio />}
+              label="No"
+              onClick={() => setOwnedBusiness(false)}
+            />
+          </RadioGroup>
+          {ownedBusiness === false && (
+            <>
+              <br />
+              <FormLabel
+                sx={{
+                  fontWeight: "bold",
+                  fontSize: 18,
+                  "&.Mui-focused": { color: "#666" },
+                }}
+              >
+                What's the business name?
+              </FormLabel>
+              <TextField
+                required
+                id="business_name"
+                onChange={handleText}
+                label="Required"
+                variant="standard"
+                placeholder="e.g Fat Fowl"
+                value={formDetails.business_name}
               />
-              <FormControlLabel
-                value="No"
-                control={<Radio />}
-                label="No"
-                onClick={() => setOwnedBusiness(false)}
-              />
-            </RadioGroup>
-            {ownedBusiness === false && (
-              <>
-                <br />
-                <FormLabel
-                  sx={{
-                    fontWeight: "bold",
-                    fontSize: 18,
-                    "&.Mui-focused": { color: "#666" },
-                  }}
-                >
-                  What's the business name?
-                </FormLabel>
-                <TextField
-                  required
-                  id="business_name"
-                  onChange={handleText}
-                  label="Required"
-                  variant="standard"
-                  placeholder="e.g Fat Fowl"
-                  value={formDetails.business_name}
-                />
-                <br />
-                <FormLabel
-                  sx={{
-                    fontWeight: "bold",
-                    fontSize: 20,
-                    "&.Mui-focused": { color: "#666" },
-                  }}
-                >
-                  How should we contact this business?
-                </FormLabel>
-                <p>Select how we should contact this business</p>
-                <FormGroup
-                  sx={{ display: "grid" }}
-                  className="ReferBusiness__Form__Checkboxes"
-                >
+              <br />
+              <FormLabel
+                sx={{
+                  fontWeight: "bold",
+                  fontSize: 20,
+                  "&.Mui-focused": { color: "#666" },
+                }}
+              >
+                How should we contact this business?
+              </FormLabel>
+              <p>Select how we should contact this business</p>
+              <FormGroup
+                sx={{ display: "grid" }}
+                className="ReferBusiness__Form__Checkboxes"
+              >
                 <FormControlLabel
-                    control={<Checkbox />}
-                    label="Website"
-                    onClick={() => setWebsite(!website)}
+                  control={<Checkbox />}
+                  label="Website"
+                  onClick={() => setWebsite(!website)}
+                />
+                <FormControlLabel
+                  control={<Checkbox />}
+                  label="Phone Number"
+                  onClick={() => setPhone(!phone)}
+                />
+                <FormControlLabel
+                  control={<Checkbox />}
+                  label="Email Address"
+                  onClick={() => setEmail(!email)}
+                />
+                <FormControlLabel
+                  control={<Checkbox />}
+                  label="Instagram"
+                  onClick={() => setInstagram(!instagram)}
+                />
+                <FormControlLabel
+                  control={<Checkbox />}
+                  label="Facebook"
+                  onClick={() => setFacebook(!facebook)}
+                />
+                <FormControlLabel
+                  control={<Checkbox />}
+                  label="Twitter"
+                  onClick={() => setTwitter(!twitter)}
+                />
+              </FormGroup>
+              <br />
+              {website && (
+                <>
+                  {" "}
+                  <FormLabel
+                    sx={{
+                      fontWeight: "bold",
+                      fontSize: 18,
+                      "&.Mui-focused": { color: "#666" },
+                    }}
+                  >
+                    Website
+                  </FormLabel>
+                  <TextField
+                    required
+                    id="website"
+                    onChange={handleText}
+                    label="Required"
+                    variant="standard"
+                    placeholder="e.g www.melanteddiamonds.com"
+                    value={formDetails.website}
                   />
-                  <FormControlLabel
-                    control={<Checkbox />}
-                    label="Phone Number"
-                    onClick={() => setPhone(!phone)}
+                  <br />
+                </>
+              )}
+
+              {phone && (
+                <>
+                  {" "}
+                  <FormLabel
+                    sx={{
+                      fontWeight: "bold",
+                      fontSize: 18,
+                      "&.Mui-focused": { color: "#666" },
+                    }}
+                  >
+                    Phone Number
+                  </FormLabel>
+                  <TextField
+                    required
+                    id="phone"
+                    onChange={handleText}
+                    label="Required"
+                    variant="standard"
+                    placeholder="e.g (xxx) xxx - xxxx"
+                    value={formDetails.phone}
                   />
-                  <FormControlLabel
-                    control={<Checkbox />}
-                    label="Email Address"
-                    onClick={() => setEmail(!email)}
+                  <br />
+                </>
+              )}
+
+              {email && (
+                <>
+                  {" "}
+                  <FormLabel
+                    sx={{
+                      fontWeight: "bold",
+                      fontSize: 18,
+                      "&.Mui-focused": { color: "#666" },
+                    }}
+                  >
+                    Email Address
+                  </FormLabel>
+                  <TextField
+                    required
+                    id="email"
+                    onChange={handleText}
+                    label="Required"
+                    variant="standard"
+                    placeholder="e.g melanateddiamonds@gmail.com"
+                    value={formDetails.email}
                   />
-                  <FormControlLabel
-                    control={<Checkbox />}
-                    label="Instagram"
-                    onClick={() => setInstagram(!instagram)}
+                  <br />
+                </>
+              )}
+
+              {instagram && (
+                <>
+                  {" "}
+                  <FormLabel
+                    sx={{
+                      fontWeight: "bold",
+                      fontSize: 18,
+                      "&.Mui-focused": { color: "#666" },
+                    }}
+                  >
+                    Instagram
+                  </FormLabel>
+                  <TextField
+                    required
+                    id="instagram"
+                    onChange={handleText}
+                    label="Required"
+                    variant="standard"
+                    placeholder="e.g instagram.com/melanateddiamonds"
+                    value={formDetails.instagram}
                   />
-                  <FormControlLabel
-                    control={<Checkbox />}
-                    label="Facebook"
-                    onClick={() => setFacebook(!facebook)}
+                  <br />
+                </>
+              )}
+
+              {facebook && (
+                <>
+                  {" "}
+                  <FormLabel
+                    sx={{
+                      fontWeight: "bold",
+                      fontSize: 18,
+                      "&.Mui-focused": { color: "#666" },
+                    }}
+                  >
+                    Facebook
+                  </FormLabel>
+                  <TextField
+                    required
+                    id="facebook"
+                    onChange={handleText}
+                    label="Required"
+                    variant="standard"
+                    placeholder="e.g facebook.com/melanateddiamonds"
+                    value={formDetails.facebook}
                   />
-                  <FormControlLabel
-                    control={<Checkbox />}
-                    label="Twitter"
-                    onClick={() => setTwitter(!twitter)}
+                  <br />
+                </>
+              )}
+
+              {twitter && (
+                <>
+                  {" "}
+                  <FormLabel
+                    sx={{
+                      fontWeight: "bold",
+                      fontSize: 18,
+                      "&.Mui-focused": { color: "#666" },
+                    }}
+                  >
+                    Twitter / X
+                  </FormLabel>
+                  <TextField
+                    required
+                    id="twitter"
+                    onChange={handleText}
+                    label="Required"
+                    variant="standard"
+                    placeholder="e.g twitter.com/melanateddiamonds"
+                    value={formDetails.twitter}
                   />
-                </FormGroup>
-                <br />
-                {website && (
-                  <>
-                    {" "}
-                    <FormLabel
-                      sx={{
-                        fontWeight: "bold",
-                        fontSize: 18,
-                        "&.Mui-focused": { color: "#666" },
-                      }}
-                    >
-                      Website
-                    </FormLabel>
-                    <TextField
-                      required
-                      id="website"
-                      onChange={handleText}
-                      label="Required"
-                      variant="standard"
-                      placeholder="e.g www.melanteddiamonds.com"
-                      value={formDetails.website}
-                    />
-                    <br />
-                  </>
-                )}
+                  <br />
+                </>
+              )}
 
-                {phone && (
-                  <>
-                    {" "}
-                    <FormLabel
-                      sx={{
-                        fontWeight: "bold",
-                        fontSize: 18,
-                        "&.Mui-focused": { color: "#666" },
-                      }}
-                    >
-                      Phone Number
-                    </FormLabel>
-                    <TextField
-                      required
-                      id="phone"
-                      onChange={handleText}
-                      label="Required"
-                      variant="standard"
-                      placeholder="e.g (xxx) xxx - xxxx"
-                      value={formDetails.phone}
-                    />
-                    <br />
-                  </>
-                )}
-
-                {email && (
-                  <>
-                    {" "}
-                    <FormLabel
-                      sx={{
-                        fontWeight: "bold",
-                        fontSize: 18,
-                        "&.Mui-focused": { color: "#666" },
-                      }}
-                    >
-                      Email Address
-                    </FormLabel>
-                    <TextField
-                      required
-                      id="email"
-                      onChange={handleText}
-                      label="Required"
-                      variant="standard"
-                      placeholder="e.g melanateddiamonds@gmail.com"
-                      value={formDetails.email}
-                    />
-                    <br />
-                  </>
-                )}
-
-                {instagram && (
-                  <>
-                    {" "}
-                    <FormLabel
-                      sx={{
-                        fontWeight: "bold",
-                        fontSize: 18,
-                        "&.Mui-focused": { color: "#666" },
-                      }}
-                    >
-                      Instagram
-                    </FormLabel>
-                    <TextField
-                      required
-                      id="instagram"
-                      onChange={handleText}
-                      label="Required"
-                      variant="standard"
-                      placeholder="e.g instagram.com/melanateddiamonds"
-                      value={formDetails.instagram}
-                    />
-                    <br />
-                  </>
-                )}
-
-                {facebook && (
-                  <>
-                    {" "}
-                    <FormLabel
-                      sx={{
-                        fontWeight: "bold",
-                        fontSize: 18,
-                        "&.Mui-focused": { color: "#666" },
-                      }}
-                    >
-                      Facebook
-                    </FormLabel>
-                    <TextField
-                      required
-                      id="facebook"
-                      onChange={handleText}
-                      label="Required"
-                      variant="standard"
-                      placeholder="e.g facebook.com/melanateddiamonds"
-                      value={formDetails.facebook}
-                    />
-                    <br />
-                  </>
-                )}
-
-                {twitter && (
-                  <>
-                    {" "}
-                    <FormLabel
-                      sx={{
-                        fontWeight: "bold",
-                        fontSize: 18,
-                        "&.Mui-focused": { color: "#666" },
-                      }}
-                    >
-                      Twitter / X
-                    </FormLabel>
-                    <TextField
-                      required
-                      id="twitter"
-                      onChange={handleText}
-                      label="Required"
-                      variant="standard"
-                      placeholder="e.g twitter.com/melanateddiamonds"
-                      value={formDetails.twitter}
-                    />
-                    <br />
-                  </>
-                )}
-
-                <Button
-                  size="large"
-                  sx={{ width: "55%", m: "auto" }}
+              <Button
+                size="large"
+                sx={{ width: "55%", m: "auto" }}
                 variant="contained"
                 onClick={handleSubmit}
-                >
-                  Send Business Referral
-                </Button>
-              </>
-            )}
-          </FormControl>
+              >
+                Send Business Referral
+              </Button>
+            </>
+          )}
+        </FormControl>
       </div>
     </div>
   );
