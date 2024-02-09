@@ -2,17 +2,42 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   width: 100%;
-  height: 600px;
+  // height: 600px;
+
+  // input:focus {
+  //   outline: none;
+  // }
+
+  // input:focus{
+  //   border: none !important;
+  //   outline: none !important;
+  // }
 
   &__Details {
-    margin: auto;
+    // display: grid;
+    // margin: auto;
+    background-color: rgba(245, 245, 245, 0.618);
+    // margin: 60px;
+    padding: 60px 100px;
+    height: 1000px;
+    // height: 100%;
     img {
-      width: 80%;
+      // width: 80%;
+      width: 500px;
+      height: 400px;
+    }
+
+    h2 {
+      font-size: 60px;
     }
   }
-
+&__Form:focus {
+  // outline: none;
+  color: white;
+}
   &__Form {
-    margin: 40px 0 0;
+    // margin: 40px 0 0;
+    padding: 60px;
 
     &__Checkboxes {
       grid-template-columns: repeat(3, 1fr);
