@@ -11,7 +11,7 @@ const API_key = process.env.REACT_APP_GOOGLE_API_KEY;
 // const API_key = ""
 
 export default function BusinessCard({ business, id, findBusinessByPlaceId }) {
-  const [businessDataFromAPI, setBusinessDataFromAPI] = useState([]);
+  const [setBusinessDataFromAPI] = useState([]);
 
   const navigate = useNavigate();
 
@@ -25,7 +25,7 @@ export default function BusinessCard({ business, id, findBusinessByPlaceId }) {
         placeId && setBusinessDataFromAPI(res.data["result"]);
       })
       .catch((c) => console.error("catch", c));
-  }, [placeId]);
+  }, [placeId, setBusinessDataFromAPI]);
 
   return (
     <div
