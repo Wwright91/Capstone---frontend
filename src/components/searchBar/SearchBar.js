@@ -44,7 +44,7 @@ const SearchBar = ({ filteredCategory, businesses }) => {
             {allCategories.map((category) => (
               <Link to={`/businesses?category=${category}`} key={category}>
                 <li key={category} id={category} onClick={filteredCategory}>
-                  {category}
+                  {category.split(" ")[0]}
                 </li>
               </Link>
             ))}

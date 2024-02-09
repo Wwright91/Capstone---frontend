@@ -15,6 +15,8 @@ import Resources from "./components/resources/Resources";
 import NewBusiness from "./components/newBusiness/NewBusiness";
 // import Footer from "./components/footer/Footer";
 import LoginModal from "./components/loginModal/LoginModal";
+import About from "./components/about/About";
+import ReferBusiness from "./components/referBusiness/ReferBusiness";
 import {
   browserLocalPersistence,
   getAuth,
@@ -96,6 +98,8 @@ function App() {
         {/* <Route path="/profile/edit/:user" element={< EditProfile/>} /> */}
         <Route path="/resources" element={<Resources />} />
         <Route path="/new" element={<NewBusiness />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/refer-a-business" element={<ReferBusiness />} />
       </Routes>
       {/* <Footer /> */}
     </Router>
