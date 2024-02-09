@@ -10,11 +10,11 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
-import Avatar from "@mui/material/Avatar";
+// import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import { yellow } from "@mui/material/colors";
+// import { yellow } from "@mui/material/colors";
 
 import hero from "../../assets/hero.png";
 
@@ -157,11 +157,11 @@ const Nav = ({ setOpenLoginModal, user }) => {
                 onClick={handleOpenUserMenu}
                 sx={{ p: 0 }}
               >
-                {user.uid && (
+                {/* {user.uid && (
                   <Avatar sx={{ bgcolor: yellow[800] }}>
                     {user.first_name[0].toUpperCase()}
                   </Avatar>
-                )}
+                )} */}
               </IconButton>
             </Tooltip>
             <Menu
