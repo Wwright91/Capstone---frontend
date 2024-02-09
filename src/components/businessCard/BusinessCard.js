@@ -2,12 +2,13 @@ import "./BusinessCard.scss";
 
 import { useNavigate } from "react-router-dom";
 
-import {StarRating }from "../StarRating";
+// import {StarRating }from "../StarRating";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
 const API = process.env.REACT_APP_API_URL;
 const API_key = process.env.REACT_APP_GOOGLE_API_KEY;
+// const API_key = ""
 
 export default function BusinessCard({ business, id, findBusinessByPlaceId }) {
   const [businessDataFromAPI, setBusinessDataFromAPI] = useState([]);
@@ -38,7 +39,7 @@ export default function BusinessCard({ business, id, findBusinessByPlaceId }) {
         className="businessCard__img"
       />
       <div className="businessCard__name">{business.name}</div>
-      <StarRating rating={businessDataFromAPI.rating} />
+      {/* <StarRating rating={businessDataFromAPI.rating} /> */}
       <p>Established in {business.year_opened} </p>
     </div>
   );
