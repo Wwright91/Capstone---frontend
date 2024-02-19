@@ -7,6 +7,7 @@ import { Button } from "react-bootstrap";
 // import Tab from "react-bootstrap/Tab";
 // import Tabs from "react-bootstrap/Tabs";
 import ShowMap from "../map/ShowMap";
+import Pagination from '@mui/material/Pagination';
 
 // import Comments from "../comments/Comments";
 import Comment from "../comments/Comment";
@@ -36,6 +37,7 @@ const Show = ({ setFavs, favs, currentUser, findBusinessByPlaceId }) => {
   const [businessOpen, setBusinessOpen] = useState(null);
   const [businessReviews, setBusinessReviews] = useState([]);
   const [businessPhotos, setBusinessPhotos] = useState([]);
+  const [toggleView, setToggleView] = useState(false)
 
   useEffect(() => {
     const backendData = axios.get(`${API}/businesses/${id}`);
@@ -200,75 +202,50 @@ const Show = ({ setFavs, favs, currentUser, findBusinessByPlaceId }) => {
           )}
         </div>
         <div className="BusinessPage__Details__Img">
-          <div>
-            <img src={img} alt={name} />
-          </div>
           {businessPhotos.length !== 0 && (
             <BusinessPhotos photos={businessPhotos} />
           )}
+          {!toggleView && (
+                    <div className="BusinessPage__Details__Expanded__Details">
+                    <h5>Details</h5>
+                    <h5>PRICE RANGE</h5>
+                    <p>$-$</p>
+                    <h5>ABOUT</h5>
+                    <p>{business.description}</p>
+        
+                    <button onClick={() => setToggleView(true)}>Reviews</button>
+                  </div>
+          )}
+          {toggleView && (
+               <div className="BusinessPage__Details__Expanded__Rating">
+              <h4>Ratings and reviews</h4>
+              {businessDataFromAPI && (
+                
+                 <span>
+                   <p className="Rating">{businessDataFromAPI.rating}</p>
+                   <StarRatingAndReviews
+                     rating={businessDataFromAPI.rating}
+                    reviews={businessReviews}
+                    setToggleView={setToggleView}
+                  />
+                </span>
+                                //  <button onClick={()=> setToggleView(false)}>Details</button>
+                
+               )}
+               {businessDataFromAPI.reviews?.slice(0, 1).map((comment, index) => (
+                 <Comment
+                   key={index}
+                   comment={comment}
+                   handleDelete={handleDelete}
+                   handleSubmit={handleEdit}
+                 />
+               ))}
+              <Pagination count={businessDataFromAPI.reviews.length} variant="outlined" />
+              <button onClick={() => setToggleView(false)}>Details</button>
+             </div>
+          )}
         </div>
         <div className="BusinessPage__Details__Expanded">
-          <div className="BusinessPage__Details__Expanded__Rating">
-            <h4>Ratings and reviews</h4>
-            {businessDataFromAPI && (
-              <span>
-                <p className="Rating">{businessDataFromAPI.rating}</p>
-                <StarRatingAndReviews
-                  rating={businessDataFromAPI.rating}
-                  reviews={businessReviews}
-                />
-              </span>
-            )}
-            {businessDataFromAPI.reviews?.slice(0, 1).map((comment, index) => (
-              <Comment
-                key={index}
-                comment={comment}
-                handleDelete={handleDelete}
-                handleSubmit={handleEdit}
-              />
-            ))}
-          </div>
-          <div className="BusinessPage__Details__Expanded__Details">
-            <h4>Details</h4>
-            <h5>PRICE RANGE</h5>
-            <p>$-$</p>
-            <h5>ABOUT</h5>
-            <p>{business.description}</p>
-          </div>
-          <div className="BusinessPage__Details__Expanded__Location">
-            <h5>Location and contact</h5>
-            <div className="BusinessPage__Details__Expanded__Location__Map">
-              <ShowMap business={business} />
-            </div>
-            <div>
-              {!is_store ? (
-                website && (
-                  <a href={website} target="*">
-                    Online Only
-                  </a>
-                )
-              ) : (
-                <p>
-                  <i className="fa-solid fa-location-dot"></i>{" "}
-                  <a href={`http://maps.google.com/?q=${name}`} target="*">
-                    {businessDataFromAPI.formatted_address || address}
-                  </a>
-                </p>
-              )}
-              <p>
-                <i className="fa-solid fa-laptop"></i>{" "}
-                <a href={website ? website : "N/A"} target="*">
-                  Website
-                </a>
-              </p>
-              {/* <a href="#"> */}
-              <i className="fa-solid fa-phone"></i>{" "}
-              {businessDataFromAPI.formatted_phone_number ||
-                contact_num ||
-                "N/A"}
-              {/* </a> */}
-            </div>
-          </div>
         </div>
       </div>
       {/* <div className="BusinessPage__Description">

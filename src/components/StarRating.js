@@ -13,7 +13,7 @@ function StarRating({ rating }) {
   return <>{rating && <p className="StarRating__stars">{stars}</p>}</>;
 }
 
-function StarRatingAndReviews({ rating, reviews }) {
+function StarRatingAndReviews({ rating, reviews, setToggleView }) {
   const stars = [];
   for (let i = 1; i <= 5; i++) {
     if (i <= rating) {
@@ -32,6 +32,7 @@ function StarRatingAndReviews({ rating, reviews }) {
           {stars} {reviews && reviews.length} reviews
         </p>
       )}
+      
       {/* <div>
         <button>Prev</button>
         <button>Next</button>
