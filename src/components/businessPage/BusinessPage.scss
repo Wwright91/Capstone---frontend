@@ -7,21 +7,7 @@
       align-items: baseline;
       margin-bottom: 6px;
       width: 1050px;
-
-      &__2 {
-        margin-left: 500px;
-
-        a {
-          border-right: 1px solid rgb(169, 169, 169);
-          padding-right: 8px;
-        }
-
-        button {
-          display: inline-flex;
-          padding: 4px 4px;
-          margin-left: 10px;
-        }
-      }
+      gap: 20px;
     }
 
     &__Rating {
@@ -54,10 +40,6 @@
     }
 
     &__Img {
-      display: grid;
-      grid-template-columns: 2fr 1fr;
-      margin: 0 70px;
-
       img {
         height: 400px;
         width: 400px;
@@ -65,37 +47,30 @@
       }
     }
 
+    &__Container {
+      display: grid;
+      grid-template-rows: 1fr 1fr;
+      gap: 20px;
+    }
+
     &__Expanded {
       margin-top: 50px;
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 30px;
-      height: 300px;
-
-      &__Rating {
-        border: 1px solid rgb(56, 56, 56);
-        padding: 30px;
-
-        span {
-          display: flex;
-          gap: 5px;
-          align-items: baseline;
-        }
-        p.Rating {
-          font-size: 22px;
-        }
-      }
+      grid-template-columns: repeat(2, 1fr);
 
       &__Details {
-        border: 1px solid rgb(56, 56, 56);
-        padding: 30px;
-      }
+        width: 600px;
+        height: 210px;
+        h4 {
+          text-align: center;
+        }
 
-      &__Location {
-        border: 1px solid rgb(56, 56, 56);
-        padding: 30px;
-        display: grid;
-        grid-template-rows: 0.5fr 2.5fr 1fr;
+        &__About {
+          height: 198px;
+          p {
+            padding: 20px;
+          }
+        }
       }
     }
   }

@@ -7,7 +7,7 @@ import { Button } from "react-bootstrap";
 // import Tab from "react-bootstrap/Tab";
 // import Tabs from "react-bootstrap/Tabs";
 import ShowMap from "../map/ShowMap";
-import Pagination from '@mui/material/Pagination';
+import Pagination from "@mui/material/Pagination";
 
 // import Comments from "../comments/Comments";
 import Comment from "../comments/Comment";
@@ -15,6 +15,9 @@ import Comment from "../comments/Comment";
 import { StarRatingAndReviews } from "../StarRating";
 import BusinessHours from "../businessHours/BusinessHours";
 import BusinessPhotos from "../businessPhotos/BusinessPhotos";
+import usePagination from "../pagination/Pagination";
+import Carousel from "react-material-ui-carousel";
+import { Paper } from "@mui/material";
 
 const API = process.env.REACT_APP_API_URL;
 // const API_key = ""
@@ -37,7 +40,6 @@ const Show = ({ setFavs, favs, currentUser, findBusinessByPlaceId }) => {
   const [businessOpen, setBusinessOpen] = useState(null);
   const [businessReviews, setBusinessReviews] = useState([]);
   const [businessPhotos, setBusinessPhotos] = useState([]);
-  const [toggleView, setToggleView] = useState(false)
 
   useEffect(() => {
     const backendData = axios.get(`${API}/businesses/${id}`);
@@ -68,6 +70,17 @@ const Show = ({ setFavs, favs, currentUser, findBusinessByPlaceId }) => {
     // "data from backend",
     // business
   );
+
+  let [page, setPage] = useState(1);
+  const PER_PAGE = 1;
+
+  const count = Math.ceil(businessReviews.length / PER_PAGE);
+  const allReviews = usePagination(businessReviews, PER_PAGE);
+
+  const handleChange = (e, p) => {
+    setPage(p);
+    allReviews.jump(p);
+  };
 
   const { name, address, contact_num, img, website, is_store } = business;
 
@@ -122,27 +135,60 @@ const Show = ({ setFavs, favs, currentUser, findBusinessByPlaceId }) => {
     axios.post(`${API}/users/user/${currentUser.uid}/favorites`, business);
   }
 
+  const details = [
+    {
+      comp: (
+        <div className="BusinessPage__Details__Expanded__Details__About">
+          <h4>About</h4>
+          <p>{business.description}</p>
+        </div>
+      ),
+    },
+    {
+      comp: (
+        <div>
+          <h4>Reviews</h4>
+          {allReviews.currentData().map((comment, index) => (
+            <Comment
+              key={index}
+              comment={comment}
+              handleDelete={handleDelete}
+              handleSubmit={handleEdit}
+            />
+          ))}
+          <br />
+          <Pagination
+            style={{ justifyContent: "center", display: "flex" }}
+            count={count}
+            size="medium"
+            page={page}
+            variant="outlined"
+            shape="rounded"
+            onChange={handleChange}
+          />
+        </div>
+      ),
+    },
+  ];
+
   return (
     <div className="BusinessPage">
       <div className="BusinessPage__Details">
         <div className="BusinessPage__Details__Header">
           <h1>{name || businessDataFromAPI.name}</h1>
-          <div className="BusinessPage__Details__Header__2">
-            {/* <a href="#">Review</a> */}
-            <Button
-              variant="warning"
-              onClick={() => {
-                setFavorite(!favorite);
-                addToFavorites();
-              }}
-            >
-              {!favorite ? (
-                <i className="fa-regular fa-star" id="unfavorite"></i>
-              ) : (
-                <i className="fa-solid fa-star" id="favorite"></i>
-              )}
-            </Button>
-          </div>
+          <Button
+            variant="warning"
+            onClick={() => {
+              setFavorite(!favorite);
+              addToFavorites();
+            }}
+          >
+            {!favorite ? (
+              <i className="fa-regular fa-star" id="unfavorite"></i>
+            ) : (
+              <i className="fa-solid fa-star" id="favorite"></i>
+            )}
+          </Button>
         </div>
         <div className="BusinessPage__Details__Rating">
           {businessDataFromAPI && (
@@ -159,7 +205,6 @@ const Show = ({ setFavs, favs, currentUser, findBusinessByPlaceId }) => {
             </span>
           )}
         </div>
-
         <div className="BusinessPage__Details__Contact">
           {!is_store ? (
             <a href={website ? website : "N/A"} target="*">
@@ -201,80 +246,30 @@ const Show = ({ setFavs, favs, currentUser, findBusinessByPlaceId }) => {
             />
           )}
         </div>
-        <div className="BusinessPage__Details__Img">
-          {businessPhotos.length !== 0 && (
-            <BusinessPhotos photos={businessPhotos} />
-          )}
-          {!toggleView && (
-                    <div className="BusinessPage__Details__Expanded__Details">
-                    <h5>Details</h5>
-                    <h5>PRICE RANGE</h5>
-                    <p>$-$</p>
-                    <h5>ABOUT</h5>
-                    <p>{business.description}</p>
-        
-                    <button onClick={() => setToggleView(true)}>Reviews</button>
-                  </div>
-          )}
-          {toggleView && (
-               <div className="BusinessPage__Details__Expanded__Rating">
-              <h4>Ratings and reviews</h4>
-              {businessDataFromAPI && (
-                
-                 <span>
-                   <p className="Rating">{businessDataFromAPI.rating}</p>
-                   <StarRatingAndReviews
-                     rating={businessDataFromAPI.rating}
-                    reviews={businessReviews}
-                    setToggleView={setToggleView}
-                  />
-                </span>
-                                //  <button onClick={()=> setToggleView(false)}>Details</button>
-                
-               )}
-               {businessDataFromAPI.reviews?.slice(0, 1).map((comment, index) => (
-                 <Comment
-                   key={index}
-                   comment={comment}
-                   handleDelete={handleDelete}
-                   handleSubmit={handleEdit}
-                 />
-               ))}
-              <Pagination count={businessDataFromAPI.reviews.length} variant="outlined" />
-              <button onClick={() => setToggleView(false)}>Details</button>
-             </div>
-          )}
-        </div>
         <div className="BusinessPage__Details__Expanded">
+          <div className="BusinessPage__Details__Img">
+            {businessPhotos.length !== 0 && (
+              <BusinessPhotos photos={businessPhotos} />
+            )}
+          </div>
+          <div className="BusinessPage__Details__Container">
+            <div className="BusinessPage__Details__Expanded__Details">
+              <Carousel autoPlay={false}>
+                {details.map((item, i) => {
+                  return (
+                    <Paper key={i}>
+                      <div style={{ paddingTop: "20px" }}>{item.comp}</div>
+                    </Paper>
+                  );
+                })}
+              </Carousel>
+            </div>
+            <div className="BusinessPage__Details__Expanded__Location__Map">
+              <ShowMap business={business} />
+            </div>
+          </div>
         </div>
       </div>
-      {/* <div className="BusinessPage__Description">
-        <Tabs activeKey={key} onSelect={(k) => setKey(k)}>
-          <Tab eventKey="description" title="Description">
-            {description}
-          </Tab>
-          <Tab
-            eventKey="comments"
-            title={<Comments comments={businessDataFromAPI.reviews} />}
-          >
-            {businessDataFromAPI.reviews?.map((comment, index) => (
-              <Comment
-                key={index}
-                comment={comment}
-                handleDelete={handleDelete}
-                handleSubmit={handleEdit}
-              />
-            ))}
-            <>
-              <Button onClick={() => setShowForm(!showForm)} variant="dark">
-                {!showForm ? "Add A New Comment" : "Hide Form"}
-              </Button>
-
-              {showForm && <CommentForm handleSubmit={handleAdd}></CommentForm>}
-            </>
-          </Tab>
-        </Tabs>
-      </div> */}
     </div>
   );
 };

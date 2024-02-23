@@ -29,7 +29,7 @@ function StarRatingAndReviews({ rating, reviews, setToggleView }) {
     <>
       {rating && (
         <p className="StarRating__stars">
-          {stars} {reviews && reviews.length} reviews
+          {stars} {rating} 
         </p>
       )}
       

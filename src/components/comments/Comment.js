@@ -3,7 +3,8 @@ import React from "react";
 // import { useState } from "react";
 // import { Button } from "react-bootstrap";
 // import CommentForm from "./CommentForm";
-import ReadMoreAndLess from "react-read-more-less";
+// import ReadMoreAndLess from "react-read-more-less";
+// import ReactReadMoreReadLess from "react-read-more-read-less";
 
 const Comment = ({ comment, handleDelete }) => {
   // const [viewEditForm, toggleEditForm] = useState(false);
@@ -14,49 +15,11 @@ const Comment = ({ comment, handleDelete }) => {
   // };
 
   return (
-    // <div className="Review">
-    //   {viewEditForm ? (
-    //     <CommentForm
-    //       commentDetails={comment}
-    //       toggleView={toggleView}
-    //       handleSubmit={handleSubmit}
-    //     />
-    //   ) : (
-
     <section className="Comment">
-      {/* <ul> */}
       <li className="Comment__Commenter">
         <h6>{comment.author_name}</h6>{" "}
-        {/* <p> */}
-          <ReadMoreAndLess
-            className="Comment__readMore"
-            readMoreText="Show more"
-            readLessText="Show less"
-          >
-            {comment.text}
-          </ReadMoreAndLess>
-        {/* </p> */}
+       <p>{comment.text}</p>
       </li>
-      {/* <>
-              <Button onClick={() => setShowForm(!showForm)} variant="dark">
-                {!showForm ? "Add A New Comment" : "Hide Form"}
-              </Button>
-
-              {showForm && (
-                <CommentForm
-                  handleSubmit={handleAdd}
-                ></CommentForm>
-              )}
-            </> */}
-
-      {/* <li>{comment.content}</li> */}
-      {/* </ul> */}
-      {/* <Button variant="warning" onClick={toggleView}>
-              {!viewEditForm ? "Edit" : "See Comment"}
-            </Button>{" "} */}
-      {/* <Button variant="danger" onClick={() => handleDelete(comment.id)}>
-              Delete
-            </Button> */}
     </section>
   );
 };

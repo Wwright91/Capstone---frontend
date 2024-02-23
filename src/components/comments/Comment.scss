@@ -1,6 +1,10 @@
 .Comment {
+  height: 105px;
+  overflow: auto;
+
   &__Commenter {
     list-style: none;
     font-size: 14px;
+    padding: 20px;
   }
 }
