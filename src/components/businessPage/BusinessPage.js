@@ -7,16 +7,15 @@ import { Button } from "react-bootstrap";
 // import Tab from "react-bootstrap/Tab";
 // import Tabs from "react-bootstrap/Tabs";
 import ShowMap from "../map/ShowMap";
-import Pagination from "@mui/material/Pagination";
+// import Pagination from "@mui/material/Pagination";
 
-// import Comments from "../comments/Comments";
+import Comments from "../comments/Comments";
 import Comment from "../comments/Comment";
 // import CommentForm from "../comments/CommentForm";
 import { StarRatingAndReviews } from "../StarRating";
 import BusinessHours from "../businessHours/BusinessHours";
 import BusinessPhotos from "../businessPhotos/BusinessPhotos";
-import usePagination from "../pagination/Pagination";
-import Carousel from "react-material-ui-carousel";
+// import usePagination from "../pagination/Pagination";
 import { Paper } from "@mui/material";
 
 const API = process.env.REACT_APP_API_URL;
@@ -40,6 +39,9 @@ const Show = ({ setFavs, favs, currentUser, findBusinessByPlaceId }) => {
   const [businessOpen, setBusinessOpen] = useState(null);
   const [businessReviews, setBusinessReviews] = useState([]);
   const [businessPhotos, setBusinessPhotos] = useState([]);
+  // const [businessLocation, setBusinessLocation] = useState({})
+  const [showMore, setShowMore] = useState(false)
+
 
   useEffect(() => {
     const backendData = axios.get(`${API}/businesses/${id}`);
@@ -60,29 +62,38 @@ const Show = ({ setFavs, favs, currentUser, findBusinessByPlaceId }) => {
           setBusinessOpen(res[1].data["result"]["opening_hours"]["open_now"]);
         placeId && setBusinessReviews(res[1].data["result"]["reviews"]);
         placeId && setBusinessPhotos(res[1].data["result"]["photos"]);
+        // placeId && setBusinessLocation({lat: res[1].data["result"]["geometry"]["location"].lat, lng: res[1].data["result"]["geometry"]["location"].lng})
       })
       .catch((c) => console.error("catch", c));
   }, [placeId, id]);
 
-  console.log(
-    "data from api",
-    businessDataFromAPI
-    // "data from backend",
-    // business
-  );
+  // console.log(
+  //   "data from api",
+  //   businessDataFromAPI
+  //   // "data from backend",
+  //   // business
+  // );
 
-  let [page, setPage] = useState(1);
-  const PER_PAGE = 1;
+  // console.log(businessLocation)
 
-  const count = Math.ceil(businessReviews.length / PER_PAGE);
-  const allReviews = usePagination(businessReviews, PER_PAGE);
+  // let [page, setPage] = useState(1);
+  // const PER_PAGE = 3;
 
-  const handleChange = (e, p) => {
-    setPage(p);
-    allReviews.jump(p);
-  };
+  // const count = Math.ceil(businessReviews.length / PER_PAGE);
+  // const allReviews = usePagination(businessReviews, PER_PAGE);
+
+  // const handleChange = (e, p) => {
+  //   setPage(p);
+  //   allReviews.jump(p);
+  // };
 
   const { name, address, contact_num, img, website, is_store } = business;
+
+  // const { lat, lng } = businessDataFromAPI.geometry.location
+  
+  // console.log(lat, lng)
+
+  // console.log(businessDataFromAPI)
 
   // const handleAdd = (newComment) => {
   //   axios
@@ -135,41 +146,9 @@ const Show = ({ setFavs, favs, currentUser, findBusinessByPlaceId }) => {
     axios.post(`${API}/users/user/${currentUser.uid}/favorites`, business);
   }
 
-  const details = [
-    {
-      comp: (
-        <div className="BusinessPage__Details__Expanded__Details__About">
-          <h4>About</h4>
-          <p>{business.description}</p>
-        </div>
-      ),
-    },
-    {
-      comp: (
-        <div>
-          <h4>Reviews</h4>
-          {allReviews.currentData().map((comment, index) => (
-            <Comment
-              key={index}
-              comment={comment}
-              handleDelete={handleDelete}
-              handleSubmit={handleEdit}
-            />
-          ))}
-          <br />
-          <Pagination
-            style={{ justifyContent: "center", display: "flex" }}
-            count={count}
-            size="medium"
-            page={page}
-            variant="outlined"
-            shape="rounded"
-            onChange={handleChange}
-          />
-        </div>
-      ),
-    },
-  ];
+  // const showComment = (e, id) => {
+  //   console.log(e, id)
+  // }
 
   return (
     <div className="BusinessPage">
@@ -248,25 +227,46 @@ const Show = ({ setFavs, favs, currentUser, findBusinessByPlaceId }) => {
         </div>
         <div className="BusinessPage__Details__Expanded">
           <div className="BusinessPage__Details__Img">
+            {/* <p>"{business.description}"</p> */}
+            {/* <Div>"{ business.description}"</Div> */}
+            <div className="BusinessPage__Details__Quote">
+            <blockquote>{business.description}</blockquote>
+            </div>
+            <br/>
             {businessPhotos.length !== 0 && (
               <BusinessPhotos photos={businessPhotos} />
             )}
           </div>
-          <div className="BusinessPage__Details__Container">
-            <div className="BusinessPage__Details__Expanded__Details">
-              <Carousel autoPlay={false}>
-                {details.map((item, i) => {
-                  return (
-                    <Paper key={i}>
-                      <div style={{ paddingTop: "20px" }}>{item.comp}</div>
-                    </Paper>
-                  );
-                })}
-              </Carousel>
-            </div>
-            <div className="BusinessPage__Details__Expanded__Location__Map">
-              <ShowMap business={business} />
-            </div>
+          {/* <div className="BusinessPage__Details__Container"> */}
+            <div className="BusinessPage__Details__Reviews">   
+              
+                <h4>Reviews</h4>
+                <Comments comments={businessReviews} />
+          {/* {allReviews.currentData().map((comment, index) => (
+            <Comment
+              id={index}
+              key={index}
+              comment={comment}
+              handleDelete={handleDelete}
+              handleSubmit={handleEdit}
+              showMore={showMore}
+              showComment={showComment}
+              setShowMore={setShowMore}
+            />
+          ))} */}
+        
+          {/* <Pagination
+            style={{ justifyContent: "center", display: "flex" }}
+            count={count}
+            size="medium"
+            page={page}
+            variant="outlined"
+            shape="rounded"
+            onChange={handleChange}
+          /> */}
+     
+            {/* </div> */}
+           
           </div>
         </div>
       </div>

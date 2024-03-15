@@ -191,7 +191,7 @@ export default function SignIn({ setOpenLoginModal }) {
               component="h2"
               align="center"
             >
-              LogIn
+              Log In
             </Typography>
             <br />
             <div className="Sign_In__Form">

@@ -1,6 +1,45 @@
+@import url('https://fonts.googleapis.com/css?family=Special+Elite');
+
 .BusinessPage {
   &__Details {
     margin: 50px 100px 100px;
+
+    &__Quote {
+      blockquote {
+        font-family: 'Special Elite', cursive;
+        background: #fffdf5;
+        color: #3f3f5a;
+        font-weight: 100;
+        font-size: 1.4rem;
+        max-width: 600px;
+        line-height: 1.4;
+        position: relative;
+        margin: 0;
+        padding: .5rem;
+      }
+      
+      blockquote:before,
+      blockquote:after {
+        position: absolute;
+        color: #000000;
+        font-size: 2rem;
+        width: 1rem;
+        height: 1rem;
+      }
+      
+      blockquote:before {
+        content: '“';
+        left: -1rem;
+        top: -1rem;
+      }
+      
+      blockquote:after {
+        content: '”';
+        right: -1rem;
+        bottom: 1rem;
+      }
+     
+    }
 
     &__Header {
       display: inline-flex;
@@ -39,6 +78,12 @@
       }
     }
 
+    &__Expanded {
+      margin-top: 50px;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+    }
+
     &__Img {
       img {
         height: 400px;
@@ -47,31 +92,8 @@
       }
     }
 
-    &__Container {
-      display: grid;
-      grid-template-rows: 1fr 1fr;
-      gap: 20px;
-    }
-
-    &__Expanded {
-      margin-top: 50px;
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-
-      &__Details {
-        width: 600px;
-        height: 210px;
-        h4 {
-          text-align: center;
-        }
-
-        &__About {
-          height: 198px;
-          p {
-            padding: 20px;
-          }
-        }
+    &__Reviews {
+        min-width: 400px;
       }
-    }
   }
 }
