@@ -3,7 +3,9 @@ import React from "react";
 import { useState } from "react";
 import {  Button } from "react-bootstrap";
 // import { useParams } from "react-router-dom";
-// import Comment from "./Comment";
+import Comment from "./Comment";
+import Pagination from "@mui/material/Pagination";
+import usePagination from "../pagination/Pagination";
 // import CommentForm from "./CommentForm";
 
 // const API = process.env.REACT_APP_API_URL;
@@ -12,6 +14,32 @@ const Comments = ({ comments }) => {
   // const [comments, setComments] = useState([]);
   // const [showForm, setShowForm] = useState(false);
   const [showComments, setShowComments] = useState(false);
+
+  const showComment = (e, id) => {
+    console.log(e, id)
+  }
+
+  let [page, setPage] = useState(1);
+  const PER_PAGE = 3;
+
+  const count = Math.ceil(comments.length / PER_PAGE);
+  const allReviews = usePagination(comments, PER_PAGE);
+
+  const handleChange = (e, p) => {
+    setPage(p);
+    allReviews.jump(p);
+  };
+
+  // let [page, setPage] = useState(1);
+  // const PER_PAGE = 24;
+
+  // const count = Math.ceil(comments.length / PER_PAGE);
+  // const _DATA = usePagination(comments, PER_PAGE);
+
+  // const handleChange = (e, p) => {
+  //   setPage(p);
+  //   _DATA.jump(p);
+  // };
   // let { id } = useParams();
 
   // console.log("comments", comments.length)
@@ -68,35 +96,26 @@ const Comments = ({ comments }) => {
   // };
 
   return (
-    // <section className="comments-section">
-    <Button variant="light" onClick={() => setShowComments(!showComments)}>
-      Comments{" "}
-      {/* <Badge bg={comments ? "secondary" : "danger"}>
-          {comments.length}
-        </Badge> */}
-    </Button>
-    //   <br />
-    //   <br />
-    //   {showComments && (
-    //     <>
-    //       {comments.map((comment) => (
-    //         <Comment
-    //           key={comment.id}
-    //           comment={comment}
-    //           handleDelete={handleDelete}
-    //           handleSubmit={handleEdit}
-    //         />
-    //       ))}
-    //       <br />
-    //       <h3>
-    //         <Button onClick={() => setShowForm(!showForm)} variant="dark">
-    //           {!showForm ? "Add A New Comment" : "Hide Form"}
-    //         </Button>
-    //       </h3>
-    //     </>
-    //   )}
-    //   {showForm && <CommentForm handleSubmit={handleAdd}></CommentForm>}
-    // </section>
+    <section className="Comments">
+      {allReviews.currentData().map((comment) => (
+            <Comment
+              key={comment.id}
+              comment={comment}
+              showComment={showComment}
+              // handleDelete={handleDelete}
+              // handleSubmit={handleEdit}
+            />
+      ))}
+       <Pagination
+            style={{ justifyContent: "center", display: "flex" }}
+            count={count}
+            size="medium"
+            page={page}
+            variant="outlined"
+            shape="rounded"
+            onChange={handleChange}
+          />
+    </section>
   );
 };
 

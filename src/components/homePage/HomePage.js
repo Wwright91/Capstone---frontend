@@ -1,5 +1,4 @@
 import "./HomePage.scss";
-import LandingPage from "../landingPage/LandingPage";
 
 const HomePage = () => {
   return (
@@ -12,7 +11,6 @@ const HomePage = () => {
         <h2>Embrace The Power Of Melanin</h2>
         <h2 className="HomePage__Motto__2"> Shop, Connect, Thrive!</h2>
       </div>
-      <LandingPage />
     </div>
   );
 };

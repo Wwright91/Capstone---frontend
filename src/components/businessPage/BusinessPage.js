@@ -7,13 +7,16 @@ import { Button } from "react-bootstrap";
 // import Tab from "react-bootstrap/Tab";
 // import Tabs from "react-bootstrap/Tabs";
 import ShowMap from "../map/ShowMap";
+// import Pagination from "@mui/material/Pagination";
 
-// import Comments from "../comments/Comments";
+import Comments from "../comments/Comments";
 import Comment from "../comments/Comment";
 // import CommentForm from "../comments/CommentForm";
 import { StarRatingAndReviews } from "../StarRating";
 import BusinessHours from "../businessHours/BusinessHours";
 import BusinessPhotos from "../businessPhotos/BusinessPhotos";
+// import usePagination from "../pagination/Pagination";
+import { Paper } from "@mui/material";
 
 const API = process.env.REACT_APP_API_URL;
 // const API_key = ""
@@ -36,6 +39,9 @@ const Show = ({ setFavs, favs, currentUser, findBusinessByPlaceId }) => {
   const [businessOpen, setBusinessOpen] = useState(null);
   const [businessReviews, setBusinessReviews] = useState([]);
   const [businessPhotos, setBusinessPhotos] = useState([]);
+  // const [businessLocation, setBusinessLocation] = useState({})
+  const [showMore, setShowMore] = useState(false)
+
 
   useEffect(() => {
     const backendData = axios.get(`${API}/businesses/${id}`);
@@ -56,18 +62,38 @@ const Show = ({ setFavs, favs, currentUser, findBusinessByPlaceId }) => {
           setBusinessOpen(res[1].data["result"]["opening_hours"]["open_now"]);
         placeId && setBusinessReviews(res[1].data["result"]["reviews"]);
         placeId && setBusinessPhotos(res[1].data["result"]["photos"]);
+        // placeId && setBusinessLocation({lat: res[1].data["result"]["geometry"]["location"].lat, lng: res[1].data["result"]["geometry"]["location"].lng})
       })
       .catch((c) => console.error("catch", c));
   }, [placeId, id]);
 
-  console.log(
-    "data from api",
-    businessDataFromAPI
-    // "data from backend",
-    // business
-  );
+  // console.log(
+  //   "data from api",
+  //   businessDataFromAPI
+  //   // "data from backend",
+  //   // business
+  // );
+
+  // console.log(businessLocation)
+
+  // let [page, setPage] = useState(1);
+  // const PER_PAGE = 3;
+
+  // const count = Math.ceil(businessReviews.length / PER_PAGE);
+  // const allReviews = usePagination(businessReviews, PER_PAGE);
+
+  // const handleChange = (e, p) => {
+  //   setPage(p);
+  //   allReviews.jump(p);
+  // };
 
   const { name, address, contact_num, img, website, is_store } = business;
+
+  // const { lat, lng } = businessDataFromAPI.geometry.location
+  
+  // console.log(lat, lng)
+
+  // console.log(businessDataFromAPI)
 
   // const handleAdd = (newComment) => {
   //   axios
@@ -120,27 +146,28 @@ const Show = ({ setFavs, favs, currentUser, findBusinessByPlaceId }) => {
     axios.post(`${API}/users/user/${currentUser.uid}/favorites`, business);
   }
 
+  // const showComment = (e, id) => {
+  //   console.log(e, id)
+  // }
+
   return (
     <div className="BusinessPage">
       <div className="BusinessPage__Details">
         <div className="BusinessPage__Details__Header">
           <h1>{name || businessDataFromAPI.name}</h1>
-          <div className="BusinessPage__Details__Header__2">
-            {/* <a href="#">Review</a> */}
-            <Button
-              variant="warning"
-              onClick={() => {
-                setFavorite(!favorite);
-                addToFavorites();
-              }}
-            >
-              {!favorite ? (
-                <i className="fa-regular fa-star" id="unfavorite"></i>
-              ) : (
-                <i className="fa-solid fa-star" id="favorite"></i>
-              )}
-            </Button>
-          </div>
+          <Button
+            variant="warning"
+            onClick={() => {
+              setFavorite(!favorite);
+              addToFavorites();
+            }}
+          >
+            {!favorite ? (
+              <i className="fa-regular fa-star" id="unfavorite"></i>
+            ) : (
+              <i className="fa-solid fa-star" id="favorite"></i>
+            )}
+          </Button>
         </div>
         <div className="BusinessPage__Details__Rating">
           {businessDataFromAPI && (
@@ -157,7 +184,6 @@ const Show = ({ setFavs, favs, currentUser, findBusinessByPlaceId }) => {
             </span>
           )}
         </div>
-
         <div className="BusinessPage__Details__Contact">
           {!is_store ? (
             <a href={website ? website : "N/A"} target="*">
@@ -199,105 +225,51 @@ const Show = ({ setFavs, favs, currentUser, findBusinessByPlaceId }) => {
             />
           )}
         </div>
-        <div className="BusinessPage__Details__Img">
-          <div>
-            <img src={img} alt={name} />
-          </div>
-          {businessPhotos.length !== 0 && (
-            <BusinessPhotos photos={businessPhotos} />
-          )}
-        </div>
         <div className="BusinessPage__Details__Expanded">
-          <div className="BusinessPage__Details__Expanded__Rating">
-            <h4>Ratings and reviews</h4>
-            {businessDataFromAPI && (
-              <span>
-                <p className="Rating">{businessDataFromAPI.rating}</p>
-                <StarRatingAndReviews
-                  rating={businessDataFromAPI.rating}
-                  reviews={businessReviews}
-                />
-              </span>
+          <div className="BusinessPage__Details__Img">
+            {/* <p>"{business.description}"</p> */}
+            {/* <Div>"{ business.description}"</Div> */}
+            <div className="BusinessPage__Details__Quote">
+            <blockquote>{business.description}</blockquote>
+            </div>
+            <br/>
+            {businessPhotos.length !== 0 && (
+              <BusinessPhotos photos={businessPhotos} />
             )}
-            {businessDataFromAPI.reviews?.slice(0, 1).map((comment, index) => (
-              <Comment
-                key={index}
-                comment={comment}
-                handleDelete={handleDelete}
-                handleSubmit={handleEdit}
-              />
-            ))}
           </div>
-          <div className="BusinessPage__Details__Expanded__Details">
-            <h4>Details</h4>
-            <h5>PRICE RANGE</h5>
-            <p>$-$</p>
-            <h5>ABOUT</h5>
-            <p>{business.description}</p>
-          </div>
-          <div className="BusinessPage__Details__Expanded__Location">
-            <h5>Location and contact</h5>
-            <div className="BusinessPage__Details__Expanded__Location__Map">
-              <ShowMap business={business} />
-            </div>
-            <div>
-              {!is_store ? (
-                website && (
-                  <a href={website} target="*">
-                    Online Only
-                  </a>
-                )
-              ) : (
-                <p>
-                  <i className="fa-solid fa-location-dot"></i>{" "}
-                  <a href={`http://maps.google.com/?q=${name}`} target="*">
-                    {businessDataFromAPI.formatted_address || address}
-                  </a>
-                </p>
-              )}
-              <p>
-                <i className="fa-solid fa-laptop"></i>{" "}
-                <a href={website ? website : "N/A"} target="*">
-                  Website
-                </a>
-              </p>
-              {/* <a href="#"> */}
-              <i className="fa-solid fa-phone"></i>{" "}
-              {businessDataFromAPI.formatted_phone_number ||
-                contact_num ||
-                "N/A"}
-              {/* </a> */}
-            </div>
+          {/* <div className="BusinessPage__Details__Container"> */}
+            <div className="BusinessPage__Details__Reviews">   
+              
+                <h4>Reviews</h4>
+                <Comments comments={businessReviews} />
+          {/* {allReviews.currentData().map((comment, index) => (
+            <Comment
+              id={index}
+              key={index}
+              comment={comment}
+              handleDelete={handleDelete}
+              handleSubmit={handleEdit}
+              showMore={showMore}
+              showComment={showComment}
+              setShowMore={setShowMore}
+            />
+          ))} */}
+        
+          {/* <Pagination
+            style={{ justifyContent: "center", display: "flex" }}
+            count={count}
+            size="medium"
+            page={page}
+            variant="outlined"
+            shape="rounded"
+            onChange={handleChange}
+          /> */}
+     
+            {/* </div> */}
+           
           </div>
         </div>
       </div>
-      {/* <div className="BusinessPage__Description">
-        <Tabs activeKey={key} onSelect={(k) => setKey(k)}>
-          <Tab eventKey="description" title="Description">
-            {description}
-          </Tab>
-          <Tab
-            eventKey="comments"
-            title={<Comments comments={businessDataFromAPI.reviews} />}
-          >
-            {businessDataFromAPI.reviews?.map((comment, index) => (
-              <Comment
-                key={index}
-                comment={comment}
-                handleDelete={handleDelete}
-                handleSubmit={handleEdit}
-              />
-            ))}
-            <>
-              <Button onClick={() => setShowForm(!showForm)} variant="dark">
-                {!showForm ? "Add A New Comment" : "Hide Form"}
-              </Button>
-
-              {showForm && <CommentForm handleSubmit={handleAdd}></CommentForm>}
-            </>
-          </Tab>
-        </Tabs>
-      </div> */}
     </div>
   );
 };

@@ -2,8 +2,8 @@ import "./SearchBar.scss";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-const SearchBar = ({ filteredCategory, businesses }) => {
-  const [inputValue, setInputValue] = useState("");
+const SearchBar = ({ businesses, filteredCategory, inputValue, onChange }) => {
+  // const [inputValue, setInputValue] = useState("");
   const [showCategories, setShowCategories] = useState(false);
 
   let allCategories = [
@@ -24,9 +24,7 @@ const SearchBar = ({ filteredCategory, businesses }) => {
         className="SearchBar__Input"
         type="text"
         value={inputValue}
-        onChange={(e) => {
-          setInputValue(e.target.value);
-        }}
+        onChange={onChange}
         // required
       />
       <button className="SearchBar__Search">Search</button>

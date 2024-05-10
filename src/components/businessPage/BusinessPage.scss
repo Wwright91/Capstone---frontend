@@ -1,27 +1,52 @@
+@import url('https://fonts.googleapis.com/css?family=Special+Elite');
+
 .BusinessPage {
   &__Details {
     margin: 50px 100px 100px;
+
+    &__Quote {
+      blockquote {
+        font-family: 'Special Elite', cursive;
+        background: #fffdf5;
+        color: #3f3f5a;
+        font-weight: 100;
+        font-size: 1.4rem;
+        max-width: 600px;
+        line-height: 1.4;
+        position: relative;
+        margin: 0;
+        padding: .5rem;
+      }
+      
+      blockquote:before,
+      blockquote:after {
+        position: absolute;
+        color: #000000;
+        font-size: 2rem;
+        width: 1rem;
+        height: 1rem;
+      }
+      
+      blockquote:before {
+        content: '“';
+        left: -1rem;
+        top: -1rem;
+      }
+      
+      blockquote:after {
+        content: '”';
+        right: -1rem;
+        bottom: 1rem;
+      }
+     
+    }
 
     &__Header {
       display: inline-flex;
       align-items: baseline;
       margin-bottom: 6px;
       width: 1050px;
-
-      &__2 {
-        margin-left: 500px;
-
-        a {
-          border-right: 1px solid rgb(169, 169, 169);
-          padding-right: 8px;
-        }
-
-        button {
-          display: inline-flex;
-          padding: 4px 4px;
-          margin-left: 10px;
-        }
-      }
+      gap: 20px;
     }
 
     &__Rating {
@@ -53,11 +78,13 @@
       }
     }
 
-    &__Img {
+    &__Expanded {
+      margin-top: 50px;
       display: grid;
-      grid-template-columns: 2fr 1fr;
-      margin: 0 100px;
+      grid-template-columns: repeat(2, 1fr);
+    }
 
+    &__Img {
       img {
         height: 400px;
         width: 400px;
@@ -65,38 +92,8 @@
       }
     }
 
-    &__Expanded {
-      margin-top: 50px;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 30px;
-      height: 300px;
-
-      &__Rating {
-        border: 1px solid rgb(56, 56, 56);
-        padding: 30px;
-
-        span {
-          display: flex;
-          gap: 5px;
-          align-items: baseline;
-        }
-        p.Rating {
-          font-size: 22px;
-        }
+    &__Reviews {
+        min-width: 400px;
       }
-
-      &__Details {
-        border: 1px solid rgb(56, 56, 56);
-        padding: 30px;
-      }
-
-      &__Location {
-        border: 1px solid rgb(56, 56, 56);
-        padding: 30px;
-        display: grid;
-        grid-template-rows: 0.5fr 2.5fr 1fr;
-      }
-    }
   }
 }
