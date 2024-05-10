@@ -50,7 +50,7 @@ export default function IndexPage({ businesses, findBusinessByPlaceId }) {
   // let businessesToDisplay = filterBySearch.length ? filterBySearch : filteredBusinesses
   const businessesToDisplay = (inputValue || category) ? filterBySearch : filteredBusinesses;
   
-  console.log("filterBySearch", filterBySearch, "businessesToDisplay", businessesToDisplay)
+  // console.log("filterBySearch", filterBySearch, "businessesToDisplay", businessesToDisplay)
 
   const handleChange = (e) => {
     setInputValue(e.target.value);

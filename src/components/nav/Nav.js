@@ -132,7 +132,7 @@ const Nav = ({ setOpenLoginModal, user }) => {
               {links
                 .filter((link) => link[0] !== window.location.pathname)
                 .map((link) => (
-                  <Link to={link[0]}>{link[1]}</Link>
+                  <Link key={link[0]} to={link[0]}>{link[1]}</Link>
                 ))}
             </div>
           )}

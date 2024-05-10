@@ -15,9 +15,9 @@ const BusinessHours = ({
               <h6>Hours</h6>
             </div>
             <div className="BusinessHours__Container__Content">
-              {businessHours.map((el) => {
+              {businessHours.map((el, index) => {
                 return (
-                  <div className="BusinessHours__Container__Content__DayDetails">
+                  <div key={index} className="BusinessHours__Container__Content__DayDetails">
                     <div className="BusinessHours__Container__Content__DayDetails__Day">
                       {el.split(" ")[0].replace(":", " ").slice(0, 3)}
                     </div>

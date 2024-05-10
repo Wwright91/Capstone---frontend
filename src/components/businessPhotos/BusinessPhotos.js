@@ -26,8 +26,8 @@ const BusinessPhotos = ({ photos }) => {
         },
       }}
     >
-      {photos.map((item) => (
-        <Paper style={{ width: "50%" }}>
+      {photos.map((item, index) => (
+        <Paper key={index} style={{ width: "50%" }}>
           <img
             src={`https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${item.photo_reference}&key=${API_key}`}
             alt="business-reference"

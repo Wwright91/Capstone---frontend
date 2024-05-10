@@ -28,9 +28,7 @@ const Comment = ({ id, comment, handleDelete, showComment }) => {
           <div></div>
           <div className="Comment__Details">
             <p>{comment.relative_time_description}</p>
-            <p>
               <StarRating rating={comment.rating} />
-            </p>
           </div>
         </div>
         {/* <ReactReadMoreReadLess>

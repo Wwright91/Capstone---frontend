@@ -97,9 +97,9 @@ const Comments = ({ comments }) => {
 
   return (
     <section className="Comments">
-      {allReviews.currentData().map((comment) => (
+      {allReviews.currentData().map((comment, index) => (
             <Comment
-              key={comment.id}
+              key={index}
               comment={comment}
               showComment={showComment}
               // handleDelete={handleDelete}
